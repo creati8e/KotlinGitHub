@@ -1,9 +1,8 @@
 package chuprin.serg.kotlin_github.user.view
 
 import chuprin.serg.kotlin_github.app.mvp.view.MvpView
-import chuprin.serg.kotlin_github.user.presenter.UserPresenter
 
-interface UserView : MvpView<UserPresenter> {
+interface UserView : MvpView {
 
     fun showReposCount(count: String)
 

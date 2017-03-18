@@ -13,13 +13,13 @@ class UserPresenter @Inject constructor(private val usersInteractor: UsersIntera
     private var login: String = ""
 
     override fun onViewAttached() {
-        subscribe(usersInteractor.getUser(login)
+        subscribeView(usersInteractor.getUser(login)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ showUser(it) }, ::error))
     }
 
     private fun showUser(user: UserEntity) {
-        view?.apply {
+        view.apply {
             user.apply {
                 showFollowersCount(followers.toString())
                 showFollowingCount(following.toString())

@@ -11,8 +11,8 @@ class UserListPresenter
 @Inject constructor(val interactor: UsersInteractor) : MvpPresenter<UsersView>(), AnkoLogger {
 
     override fun onViewAttached() {
-        subscribe(interactor.getUsers()
+        subscribeView(interactor.getUsers()
                 .subscribeWithProgress(view)
-                .subscribe({ view?.showData(it) }, { it.printStackTrace() }))
+                .subscribe({ view.showData(it) }, { it.printStackTrace() }))
     }
 }

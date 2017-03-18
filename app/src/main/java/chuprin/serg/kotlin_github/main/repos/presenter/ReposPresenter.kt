@@ -9,9 +9,8 @@ import javax.inject.Inject
 class ReposPresenter @Inject constructor(val interactor: ReposInteractor) : MvpPresenter<ReposView>() {
 
     override fun onViewAttached() {
-        super.onViewAttached()
-        subscribe(interactor.getAll()
+        subscribeView(interactor.getAll()
                 .subscribeWithProgress(view)
-                .subscribe({ view?.showData(it) }, { it.printStackTrace() }))
+                .subscribe({ view.showData(it) }, { it.printStackTrace() }))
     }
 }

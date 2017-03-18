@@ -4,19 +4,20 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import chuprin.serg.kotlin_github.R
+import chuprin.serg.kotlin_github.R.layout.fragment_list
 import chuprin.serg.kotlin_github.app.mvp.MvpPresenter
 import chuprin.serg.kotlin_github.app.mvp.view.MvpFragment
 import chuprin.serg.kotlin_github.app.presentation.view.BaseAdapter
 import kotlinx.android.synthetic.main.fragment_list.*
 import org.jetbrains.anko.toast
 
-abstract class ListFragment<MODEL, ADAPTER : BaseAdapter<MODEL>> : MvpFragment<MvpPresenter<*>>(), ListView<MODEL> {
+abstract class ListFragment<MODEL, ADAPTER : BaseAdapter<MODEL>>
+    : MvpFragment<MvpPresenter<*>>(fragment_list), ListView<MODEL> {
 
     protected lateinit var adapter: ADAPTER
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View?, savedState: Bundle?) {
+        super.onViewCreated(view, savedState)
         adapter = createAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -34,8 +35,6 @@ abstract class ListFragment<MODEL, ADAPTER : BaseAdapter<MODEL>> : MvpFragment<M
         adapter.setData(data)
     }
 
-    override fun getLayoutRes(): Int = R.layout.fragment_list
-
     override fun showMessage(message: Int) = activity.toast(message)
 
     override fun getContext(): Context = activity.applicationContext
@@ -43,5 +42,6 @@ abstract class ListFragment<MODEL, ADAPTER : BaseAdapter<MODEL>> : MvpFragment<M
     abstract fun onItemClicked(model: MODEL, pos: Int)
 
     abstract fun createAdapter(): ADAPTER
+
 
 }
