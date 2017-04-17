@@ -1,25 +1,20 @@
 package chuprin.serg.kotlin_github.user.view
 
 import android.os.Bundle
-import android.util.Log
 import chuprin.serg.kotlin_github.R
 import chuprin.serg.kotlin_github.R.layout.activity_user
 import chuprin.serg.kotlin_github.app.di.MyApplication
-import chuprin.serg.kotlin_github.app.mvp.view.MvpActivity
 import chuprin.serg.kotlin_github.app.presentation.view.utils.load
-import chuprin.serg.kotlin_github.user.DaggerUserComponent
 import chuprin.serg.kotlin_github.user.UserModule
 import chuprin.serg.kotlin_github.user.presenter.UserPresenter
+import chuprin.serg.mvpcore.view.MvpActivity
 import kotlinx.android.synthetic.main.activity_user.*
 import javax.inject.Inject
 
-class UserActivity : MvpActivity<UserPresenter>(activity_user), UserView {
+class UserActivity : MvpActivity<UserPresenter>(), UserView {
+    override fun getLayoutRes(): Int = activity_user
 
-    @Inject internal lateinit var presenter: UserPresenter
-
-    override fun initPresenter() {
-        presenter.setUser(intent.extras.getString("login"))
-    }
+    @Inject lateinit var presenter: UserPresenter
 
     override fun showReposCount(count: String) {
         reposCount.text = count
@@ -41,15 +36,14 @@ class UserActivity : MvpActivity<UserPresenter>(activity_user), UserView {
         followersCount.text = count
     }
 
-    override fun onCreate(state: Bundle?) {
-        super.onCreate(state)
-        Log.v("s", "s")
-    }
-
     override fun createComponent(state: Bundle?): Any {
-        return DaggerUserComponent.builder()
-                .appComponent(MyApplication.component)
-                .userModule(UserModule(state))
-                .build()
+        val bundle = Bundle()
+        if (intent.extras != null) {
+            bundle.putAll(intent.extras)
+        }
+        if (state != null) {
+            bundle.putAll(state)
+        }
+        return MyApplication.component.userComponent(UserModule(bundle))
     }
 }

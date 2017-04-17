@@ -1,8 +1,9 @@
 package chuprin.serg.kotlin_github.app.di
 
-import chuprin.serg.kotlin_github.app.data.AbsRepository
-import chuprin.serg.kotlin_github.app.data.entity.RepoEntity
-import chuprin.serg.kotlin_github.app.data.entity.UserEntity
+import chuprin.serg.kotlin_github.main.MainComponent
+import chuprin.serg.kotlin_github.main.MainModule
+import chuprin.serg.kotlin_github.user.UserComponent
+import chuprin.serg.kotlin_github.user.UserModule
 import dagger.Component
 import javax.inject.Singleton
 
@@ -10,7 +11,7 @@ import javax.inject.Singleton
 @Singleton
 interface AppComponent {
 
-    fun getUserRepo(): AbsRepository<UserEntity>
+    fun mainComponent(module: MainModule): MainComponent
 
-    fun getRepositoryRepo(): AbsRepository<RepoEntity>
+    fun userComponent(module: UserModule): UserComponent
 }

@@ -1,16 +1,14 @@
 package chuprin.serg.kotlin_github.user.presenter
 
-import chuprin.serg.kotlin_github.app.data.entity.UserEntity
+import chuprin.serg.kotlin_github.app.data.entity.GithubUserEntity
 import chuprin.serg.kotlin_github.app.domain.interactor.UsersInteractor
-import chuprin.serg.kotlin_github.app.mvp.MvpPresenter
 import chuprin.serg.kotlin_github.user.view.UserView
+import chuprin.serg.mvpcore.MvpPresenter
 import rx.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
-class UserPresenter @Inject constructor(private val usersInteractor: UsersInteractor)
-    : MvpPresenter<UserView>() {
-
-    private var login: String = ""
+class UserPresenter @Inject constructor(private val usersInteractor: UsersInteractor,
+                                        private val login: String) : MvpPresenter<UserView>() {
 
     override fun onViewAttached() {
         subscribeView(usersInteractor.getUser(login)
@@ -18,7 +16,7 @@ class UserPresenter @Inject constructor(private val usersInteractor: UsersIntera
                 .subscribe({ showUser(it) }, ::error))
     }
 
-    private fun showUser(user: UserEntity) {
+    private fun showUser(user: GithubUserEntity) {
         view.apply {
             user.apply {
                 showFollowersCount(followers.toString())
@@ -28,9 +26,5 @@ class UserPresenter @Inject constructor(private val usersInteractor: UsersIntera
                 showReposCount(repos.toString())
             }
         }
-    }
-
-    fun setUser(login: String) {
-        this.login = login
     }
 }

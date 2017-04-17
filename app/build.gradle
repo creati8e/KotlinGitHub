@@ -27,8 +27,8 @@ android {
         generateStubs = true
     }
 }
-def daggerVer = '2.9'
-def supportVer = '25.3.0'
+def daggerVer = '2.10'
+def supportVer = '25.3.1'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -62,6 +62,8 @@ dependencies {
     //anko
     compile 'org.jetbrains.anko:anko-common:0.9'
     compile 'com.github.vicpinm:krealmextensions:1.0.6'
+
+    compile project(":mvp-core")
 
 
 }

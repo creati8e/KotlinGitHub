@@ -5,12 +5,12 @@ import chuprin.serg.kotlin_github.app.data.Source
 import chuprin.serg.kotlin_github.app.data.entity.*
 import chuprin.serg.kotlin_github.app.data.network.GithubRepositoriesApi
 import chuprin.serg.kotlin_github.app.data.network.GithubUsersApi
-import chuprin.serg.kotlin_github.app.data.repository.repo.ReposRepository
-import chuprin.serg.kotlin_github.app.data.repository.repo.source.RepoDbSource
-import chuprin.serg.kotlin_github.app.data.repository.repo.source.RepoNetworkSource
-import chuprin.serg.kotlin_github.app.data.repository.user.UsersRepository
-import chuprin.serg.kotlin_github.app.data.repository.user.source.UserDbSource
-import chuprin.serg.kotlin_github.app.data.repository.user.source.UserNetworkSource
+import chuprin.serg.kotlin_github.app.data.repository.githubRepository.GithubRepositoriesRepository
+import chuprin.serg.kotlin_github.app.data.repository.githubRepository.source.GithubRepositoriesDbSource
+import chuprin.serg.kotlin_github.app.data.repository.githubRepository.source.GithubRepositoriesNetworkSource
+import chuprin.serg.kotlin_github.app.data.repository.githubUser.GithubUsersRepository
+import chuprin.serg.kotlin_github.app.data.repository.githubUser.source.GithubUsersDbSource
+import chuprin.serg.kotlin_github.app.data.repository.githubUser.source.GithubUsersNetworkSource
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -23,16 +23,18 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideUserRepository(dbSource: Source<UserDbEntity>, netSource: Source<UserNetworkEntity>)
-            : AbsRepository<UserEntity> {
+    fun provideUserRepository(dbSource: Source<GithubUserDbEntity>,
+                              netSource: Source<GithubUserNetworkEntity>)
+            : AbsRepository<GithubUserEntity> {
 
-        return UsersRepository(dbSource, netSource)
+        return GithubUsersRepository(dbSource, netSource)
     }
 
     @Provides
     @Singleton
-    fun provideRepoRepository(dbSource: Source<RepoDbEntity>, netSource: Source<RepoNetworkEntity>): AbsRepository<RepoEntity> {
-        return ReposRepository(dbSource, netSource)
+    fun provideRepoRepository(dbSource: Source<GithubRepositoryDbEntity>,
+                              netSource: Source<GithubRepositoryNetworkEntity>): AbsRepository<GithubRepositoryEntity> {
+        return GithubRepositoriesRepository(dbSource, netSource)
     }
 
     //endregion
@@ -40,16 +42,20 @@ class DataModule {
     //region Sources
 
     @Provides
-    fun provideUserDbSource(): Source<UserDbEntity> = UserDbSource()
+    fun provideUserDbSource(): Source<GithubUserDbEntity> = GithubUsersDbSource()
 
     @Provides
-    fun provideUserNetSource(api: GithubUsersApi): Source<UserNetworkEntity> = UserNetworkSource(api)
+    fun provideUserNetSource(api: GithubUsersApi): Source<GithubUserNetworkEntity> {
+        return GithubUsersNetworkSource(api)
+    }
 
     @Provides
-    fun provideRepoDbSource(): Source<RepoDbEntity> = RepoDbSource()
+    fun provideRepoDbSource(): Source<GithubRepositoryDbEntity> = GithubRepositoriesDbSource()
 
     @Provides
-    fun provideRepoNetSource(api: GithubRepositoriesApi): Source<RepoNetworkEntity> = RepoNetworkSource(api)
+    fun provideRepoNetSource(api: GithubRepositoriesApi): Source<GithubRepositoryNetworkEntity> {
+        return GithubRepositoriesNetworkSource(api)
+    }
 
     //endregion
 }

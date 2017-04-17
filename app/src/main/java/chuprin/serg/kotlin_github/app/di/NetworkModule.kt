@@ -1,5 +1,6 @@
 package chuprin.serg.kotlin_github.app.di
 
+import chuprin.serg.kotlin_github.app.data.network.GithubApi
 import chuprin.serg.kotlin_github.app.data.network.GithubRepositoriesApi
 import chuprin.serg.kotlin_github.app.data.network.GithubUsersApi
 import dagger.Module
@@ -29,7 +30,7 @@ class NetworkModule {
     fun provideRetrofit(rxAdapter: RxJavaCallAdapterFactory, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .client(client)
-                .baseUrl("https://api.github.com")
+                .baseUrl(GithubApi.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(rxAdapter)
                 .build()
@@ -49,9 +50,6 @@ class NetworkModule {
 
     @Provides
     fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
-        return OkHttpClient.Builder()
-                .addInterceptor(interceptor)
-                .build()
+        return OkHttpClient.Builder().addInterceptor(interceptor).build()
     }
-
 }

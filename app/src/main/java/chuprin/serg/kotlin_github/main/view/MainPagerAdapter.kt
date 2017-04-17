@@ -3,8 +3,8 @@ package chuprin.serg.kotlin_github.main.view
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import chuprin.serg.kotlin_github.app.presentation.view.BasePagerAdapter
-import chuprin.serg.kotlin_github.main.repos.view.ReposFragment
-import chuprin.serg.kotlin_github.main.users.view.UserListFragment
+import chuprin.serg.kotlin_github.main.repositories.view.RepositoriesListFragment
+import chuprin.serg.kotlin_github.main.users.view.UsersListFragment
 
 class MainPagerAdapter(fm: FragmentManager?) : BasePagerAdapter(fm) {
 
@@ -12,8 +12,8 @@ class MainPagerAdapter(fm: FragmentManager?) : BasePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> UserListFragment.newInstance()
-            else -> ReposFragment.newInstance()
+            0 -> UsersListFragment.newInstance()
+            else -> RepositoriesListFragment.newInstance()
         }
     }
 

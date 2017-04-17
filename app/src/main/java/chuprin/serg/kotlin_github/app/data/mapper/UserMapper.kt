@@ -1,15 +1,15 @@
 package chuprin.serg.kotlin_github.app.data.mapper
 
-import chuprin.serg.kotlin_github.app.data.entity.UserDbEntity
-import chuprin.serg.kotlin_github.app.data.entity.UserEntity
-import chuprin.serg.kotlin_github.app.data.entity.UserNetworkEntity
+import chuprin.serg.kotlin_github.app.data.entity.GithubUserDbEntity
+import chuprin.serg.kotlin_github.app.data.entity.GithubUserEntity
+import chuprin.serg.kotlin_github.app.data.entity.GithubUserNetworkEntity
 
-fun UserDbEntity.mapDbToEntity(): UserEntity = UserEntity(login, avatarUrl, repos, followers, following)
+fun GithubUserDbEntity.mapDbToEntity(): GithubUserEntity = GithubUserEntity(login, avatarUrl, repos, followers, following)
 
-fun UserNetworkEntity.mapNetToDb(): UserDbEntity = UserDbEntity(login, avatarUrl, repos, followers, following)
+fun GithubUserNetworkEntity.mapNetToDb(): GithubUserDbEntity = GithubUserDbEntity(login, avatarUrl, repos, followers, following)
 
-fun UserEntity.mapEntityToDb(): UserDbEntity = UserDbEntity(login, avatarUrl, repos, followers, following)
+fun GithubUserEntity.mapEntityToDb(): GithubUserDbEntity = GithubUserDbEntity(login, avatarUrl, repos, followers, following)
 
-fun List<UserNetworkEntity>.mapNetListToDb(): List<UserDbEntity> = map(UserNetworkEntity::mapNetToDb).toList()
+fun List<GithubUserNetworkEntity>.mapNetListToDb(): List<GithubUserDbEntity> = map(GithubUserNetworkEntity::mapNetToDb).toList()
 
-fun List<UserDbEntity>.mapDbListToEntity(): List<UserEntity> = map(UserDbEntity::mapDbToEntity).toList()
+fun List<GithubUserDbEntity>.mapDbListToEntity(): List<GithubUserEntity> = map(GithubUserDbEntity::mapDbToEntity).toList()

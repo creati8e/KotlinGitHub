@@ -3,8 +3,8 @@ package chuprin.serg.kotlin_github.user;
 import android.os.Bundle
 import chuprin.serg.kotlin_github.app.di.scopes.PerView
 import chuprin.serg.kotlin_github.app.domain.interactor.UsersInteractor
-import chuprin.serg.kotlin_github.app.mvp.cache.PresenterModule
 import chuprin.serg.kotlin_github.user.presenter.UserPresenter
+import chuprin.serg.mvpcore.cache.PresenterModule
 import dagger.Module
 import dagger.Provides
 
@@ -12,10 +12,8 @@ import dagger.Provides
 
     @Provides
     @PerView
-    fun providePresenter(usersInteractor: UsersInteractor): UserPresenter {
-        if (bundle == null) {
-            return UserPresenter(usersInteractor)
-        }
-        return cache.get(bundle) as UserPresenter
+    fun providePresenter(interactor: UsersInteractor): UserPresenter {
+        return getPresenter({ UserPresenter(interactor, bundle.getString("login")) },
+                UserPresenter::class.java)
     }
 }
