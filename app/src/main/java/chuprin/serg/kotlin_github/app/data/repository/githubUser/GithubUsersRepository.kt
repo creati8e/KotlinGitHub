@@ -9,6 +9,7 @@ import chuprin.serg.kotlin_github.app.data.mapper.mapDbListToEntity
 import chuprin.serg.kotlin_github.app.data.mapper.mapDbToEntity
 import chuprin.serg.kotlin_github.app.data.mapper.mapNetListToDb
 import chuprin.serg.kotlin_github.app.data.mapper.mapNetToDb
+import chuprin.serg.kotlin_github.app.data.repository.specification.Specification
 import rx.Observable
 import javax.inject.Inject
 
@@ -16,27 +17,27 @@ class GithubUsersRepository @Inject constructor(
         val dbSource: Source<GithubUserDbEntity>,
         val netSource: Source<GithubUserNetworkEntity>) : AbsRepository<GithubUserEntity> {
 
-    override fun getAll(): Observable<List<GithubUserEntity>> {
-        val dbUsers = dbSource.getAll().map(List<GithubUserDbEntity>::mapDbListToEntity)
+    override fun get(specification: Specification): Observable<GithubUserEntity> {
+        val dbUser = dbSource.get(specification).map(GithubUserDbEntity::mapDbToEntity)
 
-        val netUsers = netSource.getAll()
-                .doOnNext { dbSource.putAll(it.mapNetListToDb()) }
-                .flatMap { dbSource.getAll() }
-                .onErrorResumeNext(dbSource.getAll())
-                .map(List<GithubUserDbEntity>::mapDbListToEntity)
-
-        return Observable.concat(dbUsers, netUsers)
-    }
-
-    override fun get(key: String): Observable<GithubUserEntity> {
-        val dbUser = dbSource.get(key).map(GithubUserDbEntity::mapDbToEntity)
-
-        val netUser = netSource.get(key)
+        val netUser = netSource.get(specification)
                 .doOnNext { dbSource.put(it.mapNetToDb()) }
-                .flatMap { dbSource.get(key) }
-                .onErrorResumeNext(dbSource.get(key))
+                .flatMap { dbSource.get(specification) }
+                .onErrorResumeNext(dbSource.get(specification))
                 .map(GithubUserDbEntity::mapDbToEntity)
 
         return Observable.concat(dbUser, netUser)
+    }
+
+    override fun getList(specification: Specification): Observable<List<GithubUserEntity>> {
+        val dbUsers = dbSource.getList(specification).map(List<GithubUserDbEntity>::mapDbListToEntity)
+
+        val netUsers = netSource.getList(specification)
+                .doOnNext { dbSource.putAll(it.mapNetListToDb()) }
+                .flatMap { dbSource.getList(specification) }
+                .onErrorResumeNext(dbSource.getList(specification))
+                .map(List<GithubUserDbEntity>::mapDbListToEntity)
+
+        return Observable.concat(dbUsers, netUsers)
     }
 }

@@ -1,8 +1,8 @@
 package chuprin.serg.kotlin_github.main
 
 import android.os.Bundle
-import chuprin.serg.kotlin_github.app.domain.interactor.ReposInteractor
-import chuprin.serg.kotlin_github.app.domain.interactor.UsersInteractor
+import chuprin.serg.kotlin_github.app.domain.interactor.repositories.RepositoriesInteractor
+import chuprin.serg.kotlin_github.app.domain.interactor.users.UsersInteractor
 import chuprin.serg.kotlin_github.main.repositories.presenter.RepositoriesListPresenter
 import chuprin.serg.kotlin_github.main.users.presenter.UsersListPresenter
 import chuprin.serg.mvpcore.cache.PresenterModule
@@ -18,7 +18,7 @@ class MainModule(bundle: Bundle?) : PresenterModule(bundle) {
     }
 
     @Provides
-    fun provideReposPresenter(interactor: ReposInteractor): RepositoriesListPresenter {
+    fun provideReposPresenter(interactor: RepositoriesInteractor): RepositoriesListPresenter {
         return getPresenter({ RepositoriesListPresenter(interactor) }, RepositoriesListPresenter::class.java)
     }
 }

@@ -1,10 +1,15 @@
 package chuprin.serg.kotlin_github.app.data
 
+import chuprin.serg.kotlin_github.app.data.repository.specification.Specification
 import rx.Observable
 
 interface AbsRepository<MODEL> {
 
-    fun getAll(): Observable<List<MODEL>>
+    //    fun getAll(): Observable<List<MODEL>>
+//
+//    fun get(key: String): Observable<MODEL>
+//
+    fun get(specification: Specification): Observable<MODEL>
 
-    fun get(key: String): Observable<MODEL>
+    fun getList(specification: Specification): Observable<List<MODEL>>
 }
