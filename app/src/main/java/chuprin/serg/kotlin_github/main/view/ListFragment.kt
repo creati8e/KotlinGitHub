@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import chuprin.serg.kotlin_github.R
 import chuprin.serg.kotlin_github.app.presentation.view.BaseAdapter
+import chuprin.serg.kotlin_github.app.presentation.view.utils.visibility
 import chuprin.serg.mvpcore.MvpPresenter
 import chuprin.serg.mvpcore.view.MvpFragment
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -24,12 +25,7 @@ abstract class ListFragment<MODEL, ADAPTER : BaseAdapter<MODEL>>
         adapter.clickCallback = { model: MODEL, i: Int -> onItemClicked(model, i) }
     }
 
-    override fun showProgress(visible: Boolean) {
-        progress.visibility = when (visible) {
-            true -> View.VISIBLE
-            false -> View.GONE
-        }
-    }
+    override fun showProgress(visible: Boolean) = progress.visibility(visible)
 
     override fun showData(data: List<MODEL>) = adapter.setData(data)
 

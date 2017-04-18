@@ -7,6 +7,12 @@ import javax.inject.Inject
 
 class RepositoriesInteractor @Inject constructor(private var repository: AbsRepository<GithubRepositoryEntity>) {
 
-    fun getAll(): Observable<List<GithubRepositoryEntity>> = repository.getList(AllRepositoriesSpecification())
+    fun getAllRepositories(): Observable<List<GithubRepositoryEntity>> {
+        return repository.getList(AllRepositoriesSpecification())
+    }
+
+    fun getUserRepositories(login: String): Observable<List<GithubRepositoryEntity>> {
+        return repository.getList(UserRepositoriesSpecification(login))
+    }
 
 }

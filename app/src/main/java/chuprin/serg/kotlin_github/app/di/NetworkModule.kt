@@ -1,8 +1,11 @@
 package chuprin.serg.kotlin_github.app.di
 
+import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryNetworkEntity
+import chuprin.serg.kotlin_github.app.data.mapper.GithubRepositoryDeserializer
 import chuprin.serg.kotlin_github.app.data.network.GithubApi
 import chuprin.serg.kotlin_github.app.data.network.GithubRepositoriesApi
 import chuprin.serg.kotlin_github.app.data.network.GithubUsersApi
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -27,11 +30,12 @@ class NetworkModule {
     }
 
     @Provides
-    fun provideRetrofit(rxAdapter: RxJavaCallAdapterFactory, client: OkHttpClient): Retrofit {
+    fun provideRetrofit(rxAdapter: RxJavaCallAdapterFactory, client: OkHttpClient,
+                        gsonConverterFactory: GsonConverterFactory): Retrofit {
         return Retrofit.Builder()
                 .client(client)
                 .baseUrl(GithubApi.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(gsonConverterFactory)
                 .addCallAdapterFactory(rxAdapter)
                 .build()
     }
@@ -51,5 +55,12 @@ class NetworkModule {
     @Provides
     fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder().addInterceptor(interceptor).build()
+    }
+
+    @Provides
+    fun provideGsonConverter(): GsonConverterFactory {
+        val gsonBuilder = GsonBuilder()
+        gsonBuilder.registerTypeAdapter(GithubRepositoryNetworkEntity::class.java, GithubRepositoryDeserializer())
+        return GsonConverterFactory.create(gsonBuilder.create())
     }
 }

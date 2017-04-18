@@ -6,8 +6,7 @@ import chuprin.serg.kotlin_github.app.di.MyApplication
 import chuprin.serg.kotlin_github.main.MainModule
 import chuprin.serg.kotlin_github.main.repositories.presenter.RepositoriesListPresenter
 import chuprin.serg.kotlin_github.main.view.ListFragment
-import chuprin.serg.kotlin_github.user.view.UserActivity
-import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 class RepositoriesListFragment : ListFragment<GithubRepositoryEntity, RepositoryAdapter>(), RepositoriesListView {
@@ -25,7 +24,7 @@ class RepositoriesListFragment : ListFragment<GithubRepositoryEntity, Repository
     override fun createAdapter(): RepositoryAdapter = RepositoryAdapter()
 
     override fun onItemClicked(model: GithubRepositoryEntity, pos: Int) {
-        activity.startActivity<UserActivity>("login" to model.name)
+        activity.toast("Clicked: " + model.name)
     }
 
 }

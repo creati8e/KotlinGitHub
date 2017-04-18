@@ -1,9 +1,10 @@
 package chuprin.serg.kotlin_github.user.view
 
-import chuprin.serg.mvpcore.view.MvpView
+import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryEntity
+import chuprin.serg.kotlin_github.app.presentation.view.ProgressView
 
 
-interface UserView : MvpView {
+interface UserView : ProgressView {
 
     fun showReposCount(count: String)
 
@@ -14,4 +15,8 @@ interface UserView : MvpView {
     fun showImage(image: String)
 
     fun showLogin(login: String)
+
+    fun showId(id: String)
+
+    fun showRepositories(repositories: List<GithubRepositoryEntity>)
 }

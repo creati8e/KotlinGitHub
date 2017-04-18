@@ -5,8 +5,6 @@ import rx.Observable
 
 interface Source<MODEL> {
 
-//    fun get(id: Int): MODEL
-
     fun putAll(models: List<MODEL>)
 
     fun put(model: MODEL)
@@ -14,6 +12,4 @@ interface Source<MODEL> {
     fun get(specification: Specification): Observable<MODEL>
 
     fun getList(specification: Specification): Observable<List<MODEL>>
-//
-//    fun remove(id: Int)
 }

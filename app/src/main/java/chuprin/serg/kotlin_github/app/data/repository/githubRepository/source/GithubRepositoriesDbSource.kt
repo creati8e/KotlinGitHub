@@ -21,11 +21,6 @@ class GithubRepositoriesDbSource : Source<GithubRepositoryDbEntity> {
         return spec.toDbResults()
     }
 
-//    override fun get(key: String): Observable<GithubRepositoryDbEntity> {
-//        val cachedRepo = GithubRepositoryDbEntity().queryFirst { it.equalTo("name", key) }
-//        return Observable.just(cachedRepo ?: GithubRepositoryDbEntity())
-//    }
-
     override fun putAll(models: List<GithubRepositoryDbEntity>) = models.saveAll()
 
     override fun put(model: GithubRepositoryDbEntity) = model.save()

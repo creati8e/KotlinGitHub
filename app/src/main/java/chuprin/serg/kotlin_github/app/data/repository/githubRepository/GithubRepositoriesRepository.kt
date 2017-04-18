@@ -37,6 +37,7 @@ class GithubRepositoriesRepository @Inject constructor(private val dbSource: Sou
         val netRepos = netSource.getList(specification)
                 .doOnNext { dbSource.putAll(it.mapNetListToDb()) }
                 .flatMap { dbSource.getList(specification) }
+                .doOnError { it.printStackTrace() }
                 .onErrorResumeNext(dbSource.getList(specification))
                 .map(List<GithubRepositoryDbEntity>::mapListDbToEntity)
 
