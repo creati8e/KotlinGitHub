@@ -8,7 +8,7 @@ import io.realm.RealmConfiguration
 class MyApplication : Application() {
 
     companion object {
-        val component: AppComponent = DaggerAppComponent.builder().dataModule(DataModule()).build()
+        lateinit var component: AppComponent
     }
 
     override fun onCreate() {
@@ -17,6 +17,7 @@ class MyApplication : Application() {
         Realm.setDefaultConfiguration(RealmConfiguration.Builder()
                 .deleteRealmIfMigrationNeeded()
                 .build())
+        component = DaggerAppComponent.builder().context(applicationContext).build()
     }
 }
 

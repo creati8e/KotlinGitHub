@@ -20,6 +20,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".user.view.UserActivity"/>
+        <activity
+            android:name="chuprin.serg.kotlin_github.main.login.view.LoginActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <data
+                    android:host="auth"
+                    android:scheme="kothub"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

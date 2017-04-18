@@ -18,7 +18,6 @@ import javax.inject.Inject
 
 class UserActivity : MvpActivity<UserPresenter>(), UserView {
 
-
     @Inject lateinit var presenter: UserPresenter
     private val repositoriesAdapter: RepositoryAdapter = RepositoryAdapter()
 

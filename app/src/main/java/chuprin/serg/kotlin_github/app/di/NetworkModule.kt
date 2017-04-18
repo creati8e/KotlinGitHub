@@ -2,9 +2,11 @@ package chuprin.serg.kotlin_github.app.di
 
 import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryNetworkEntity
 import chuprin.serg.kotlin_github.app.data.mapper.GithubRepositoryDeserializer
+import chuprin.serg.kotlin_github.app.data.network.AuthorizationInterceptor
 import chuprin.serg.kotlin_github.app.data.network.GithubApi
 import chuprin.serg.kotlin_github.app.data.network.GithubRepositoriesApi
 import chuprin.serg.kotlin_github.app.data.network.GithubUsersApi
+import chuprin.serg.kotlin_github.app.data.repository.credentials.CredentialsRepository
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -21,12 +23,12 @@ class NetworkModule {
 
     @Provides
     fun provideGithubReposApi(retrofit: Retrofit): GithubRepositoriesApi {
-        return retrofit.create<GithubRepositoriesApi>(GithubRepositoriesApi::class.java)
+        return retrofit.create(GithubRepositoriesApi::class.java)
     }
 
     @Provides
     fun provideGithubUsersApi(retrofit: Retrofit): GithubUsersApi {
-        return retrofit.create<GithubUsersApi>(GithubUsersApi::class.java)
+        return retrofit.create(GithubUsersApi::class.java)
     }
 
     @Provides
@@ -53,8 +55,12 @@ class NetworkModule {
     }
 
     @Provides
-    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
-        return OkHttpClient.Builder().addInterceptor(interceptor).build()
+    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor,
+                            authInterceptor: AuthorizationInterceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .addInterceptor(authInterceptor)
+                .build()
     }
 
     @Provides
@@ -63,4 +69,7 @@ class NetworkModule {
         gsonBuilder.registerTypeAdapter(GithubRepositoryNetworkEntity::class.java, GithubRepositoryDeserializer())
         return GsonConverterFactory.create(gsonBuilder.create())
     }
+
+    @Provides
+    fun provideAuthInterceptor(repository: CredentialsRepository) = AuthorizationInterceptor(repository)
 }
