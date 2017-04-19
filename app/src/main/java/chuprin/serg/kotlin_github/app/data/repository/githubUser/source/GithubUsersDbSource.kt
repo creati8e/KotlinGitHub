@@ -2,22 +2,21 @@ package chuprin.serg.kotlin_github.app.data.repository.githubUser.source
 
 import chuprin.serg.kotlin_github.app.data.Source
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserDbEntity
-import com.vicpin.krealmextensions.queryAll
-import com.vicpin.krealmextensions.queryFirst
+import chuprin.serg.kotlin_github.app.data.repository.specification.DbSpecification
+import chuprin.serg.kotlin_github.app.data.repository.specification.Specification
 import com.vicpin.krealmextensions.save
 import com.vicpin.krealmextensions.saveAll
 import rx.Observable
-import rx.schedulers.Schedulers
 
+@Suppress("UNCHECKED_CAST")
 class GithubUsersDbSource : Source<GithubUserDbEntity> {
 
-    override fun getAll(): Observable<List<GithubUserDbEntity>> {
-        return Observable.just(GithubUserDbEntity().queryAll()).subscribeOn(Schedulers.io())
+    override fun getList(specification: Specification): Observable<List<GithubUserDbEntity>> {
+        return (specification as DbSpecification<List<GithubUserDbEntity>>).toDbResults()
     }
 
-    override fun get(key: String): Observable<GithubUserDbEntity> {
-        val cachedUser = GithubUserDbEntity().queryFirst { query -> query.equalTo("login", key) }
-        return Observable.just(cachedUser ?: GithubUserDbEntity())
+    override fun get(specification: Specification): Observable<GithubUserDbEntity> {
+        return (specification as DbSpecification<GithubUserDbEntity>).toDbResults()
     }
 
     override fun put(model: GithubUserDbEntity) = model.save()

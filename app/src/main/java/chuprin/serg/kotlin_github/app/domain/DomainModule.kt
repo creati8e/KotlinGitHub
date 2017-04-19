@@ -1,8 +1,9 @@
 import chuprin.serg.kotlin_github.app.data.AbsRepository
 import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryEntity
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserEntity
-import chuprin.serg.kotlin_github.app.domain.interactor.ReposInteractor
-import chuprin.serg.kotlin_github.app.domain.interactor.UsersInteractor
+import chuprin.serg.kotlin_github.app.data.repository.credentials.CredentialsRepository
+import chuprin.serg.kotlin_github.app.domain.interactor.repositories.RepositoriesInteractor
+import chuprin.serg.kotlin_github.app.domain.interactor.users.UsersInteractor
 import dagger.Module
 import dagger.Provides
 
@@ -10,12 +11,13 @@ import dagger.Provides
 class DomainModule {
 
     @Provides
-    fun provideGitHubUserInteractor(repository: AbsRepository<GithubUserEntity>): UsersInteractor {
-        return UsersInteractor(repository)
+    fun provideGitHubUserInteractor(usersRepository: AbsRepository<GithubUserEntity>,
+                                    credentialsRepository: CredentialsRepository): UsersInteractor {
+        return UsersInteractor(usersRepository, credentialsRepository)
     }
 
     @Provides
-    fun provideGithubRepoInteractor(repository: AbsRepository<GithubRepositoryEntity>): ReposInteractor {
-        return ReposInteractor(repository)
+    fun provideGithubRepoInteractor(repository: AbsRepository<GithubRepositoryEntity>): RepositoriesInteractor {
+        return RepositoriesInteractor(repository)
     }
 }

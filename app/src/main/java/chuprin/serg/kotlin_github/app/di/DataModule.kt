@@ -1,10 +1,14 @@
 package chuprin.serg.kotlin_github.app.di
 
+import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import chuprin.serg.kotlin_github.app.data.AbsRepository
 import chuprin.serg.kotlin_github.app.data.Source
 import chuprin.serg.kotlin_github.app.data.entity.*
 import chuprin.serg.kotlin_github.app.data.network.GithubRepositoriesApi
 import chuprin.serg.kotlin_github.app.data.network.GithubUsersApi
+import chuprin.serg.kotlin_github.app.data.repository.credentials.CredentialsRepository
 import chuprin.serg.kotlin_github.app.data.repository.githubRepository.GithubRepositoriesRepository
 import chuprin.serg.kotlin_github.app.data.repository.githubRepository.source.GithubRepositoriesDbSource
 import chuprin.serg.kotlin_github.app.data.repository.githubRepository.source.GithubRepositoriesNetworkSource
@@ -37,6 +41,11 @@ class DataModule {
         return GithubRepositoriesRepository(dbSource, netSource)
     }
 
+    @Provides
+    @Singleton
+    fun provideCredentialsrepository(preferences: SharedPreferences): CredentialsRepository {
+        return CredentialsRepository(preferences)
+    }
     //endregion
 
     //region Sources
@@ -58,4 +67,7 @@ class DataModule {
     }
 
     //endregion
+
+    @Provides
+    fun provideShredPreferences(context: Context) = PreferenceManager.getDefaultSharedPreferences(context)
 }

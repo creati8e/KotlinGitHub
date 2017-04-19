@@ -2,22 +2,23 @@ package chuprin.serg.kotlin_github.app.data.repository.githubRepository.source
 
 import chuprin.serg.kotlin_github.app.data.Source
 import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryDbEntity
-import com.vicpin.krealmextensions.queryAll
-import com.vicpin.krealmextensions.queryFirst
+import chuprin.serg.kotlin_github.app.data.repository.specification.DbSpecification
+import chuprin.serg.kotlin_github.app.data.repository.specification.Specification
 import com.vicpin.krealmextensions.save
 import com.vicpin.krealmextensions.saveAll
 import rx.Observable
-import rx.schedulers.Schedulers
 
+@Suppress("UNCHECKED_CAST")
 class GithubRepositoriesDbSource : Source<GithubRepositoryDbEntity> {
 
-    override fun getAll(): Observable<List<GithubRepositoryDbEntity>> {
-        return Observable.just(GithubRepositoryDbEntity().queryAll()).subscribeOn(Schedulers.io())
+    override fun getList(specification: Specification): Observable<List<GithubRepositoryDbEntity>> {
+        val spec = specification as DbSpecification<List<GithubRepositoryDbEntity>>
+        return spec.toDbResults()
     }
 
-    override fun get(key: String): Observable<GithubRepositoryDbEntity> {
-        val cachedRepo = GithubRepositoryDbEntity().queryFirst { it.equalTo("name", key) }
-        return Observable.just(cachedRepo ?: GithubRepositoryDbEntity())
+    override fun get(specification: Specification): Observable<GithubRepositoryDbEntity> {
+        val spec = specification as DbSpecification<GithubRepositoryDbEntity>
+        return spec.toDbResults()
     }
 
     override fun putAll(models: List<GithubRepositoryDbEntity>) = models.saveAll()

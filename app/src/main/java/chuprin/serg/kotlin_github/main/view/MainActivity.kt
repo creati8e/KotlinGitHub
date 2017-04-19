@@ -1,19 +1,69 @@
 package chuprin.serg.kotlin_github.main.view
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.support.design.internal.NavigationMenuView
+import android.support.v7.app.ActionBarDrawerToggle
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import chuprin.serg.kotlin_github.KotApplication
 import chuprin.serg.kotlin_github.R
+import chuprin.serg.kotlin_github.R.layout.activity_main
+import chuprin.serg.kotlin_github.app.presentation.view.utils.load
+import chuprin.serg.kotlin_github.main.MainModule
+import chuprin.serg.kotlin_github.main.login.view.LoginActivity
+import chuprin.serg.kotlin_github.main.presenter.MainPresenter
+import chuprin.serg.mvpcore.view.MvpActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.startActivity
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : MvpActivity<MainPresenter>(), MainView {
 
+    @Inject lateinit var presenter: MainPresenter
+    lateinit var userLogin: TextView
+    lateinit var userAvatar: ImageView
     private val pagerAdapter: MainPagerAdapter = MainPagerAdapter(supportFragmentManager)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         viewpager.adapter = pagerAdapter
         tablayout.setupWithViewPager(viewpager)
         setSupportActionBar(toolbar)
+        setupDrawer()
     }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.viewResumed()
+    }
+
+    private fun setupDrawer() {
+        val toggle: ActionBarDrawerToggle = ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.app_name, R.string.app_name)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        navigationView?.getChildAt(0)?.apply {
+            if (this is NavigationMenuView) {
+                isVerticalScrollBarEnabled = false
+                overScrollMode = View.OVER_SCROLL_NEVER
+            }
+        }
+
+        val headerView = navigationView.getHeaderView(0)
+        userLogin = headerView.findViewById(R.id.username) as TextView
+        userAvatar = headerView.findViewById(R.id.headerImage) as ImageView
+        userLogin.setOnClickListener { startActivity<LoginActivity>() }
+    }
+
+    override fun getLayoutRes(): Int = activity_main
+
+    override fun createComponent(state: Bundle?) = KotApplication.component.mainComponent(MainModule(state))
+
+    override fun showUserLogin(login: String) {
+        userLogin.text = login
+    }
+
+    override fun showUserAvatar(url: String) = userAvatar.load(url, R.drawable.github_logo)
 }

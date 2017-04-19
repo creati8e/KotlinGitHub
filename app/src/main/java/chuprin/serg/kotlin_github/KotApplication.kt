@@ -1,14 +1,16 @@
-package chuprin.serg.kotlin_github.app.di
+package chuprin.serg.kotlin_github
 
 import android.app.Application
+import chuprin.serg.kotlin_github.app.di.AppComponent
+import chuprin.serg.kotlin_github.app.di.DaggerAppComponent
 import io.realm.Realm
 import io.realm.RealmConfiguration
 
 
-class MyApplication : Application() {
+class KotApplication : Application() {
 
     companion object {
-        val component: AppComponent = DaggerAppComponent.builder().dataModule(DataModule()).build()
+        lateinit var component: AppComponent
     }
 
     override fun onCreate() {
@@ -17,6 +19,7 @@ class MyApplication : Application() {
         Realm.setDefaultConfiguration(RealmConfiguration.Builder()
                 .deleteRealmIfMigrationNeeded()
                 .build())
+        component = DaggerAppComponent.builder().context(applicationContext).build()
     }
 }
 
