@@ -3,8 +3,8 @@ package chuprin.serg.kotlin_github.main.login.view
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import chuprin.serg.kotlin_github.KotApplication
 import chuprin.serg.kotlin_github.R
-import chuprin.serg.kotlin_github.app.di.MyApplication
 import chuprin.serg.kotlin_github.app.presentation.view.utils.visibility
 import chuprin.serg.kotlin_github.main.login.CustomTabsHelper
 import chuprin.serg.kotlin_github.main.login.LoginModule
@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(state: Bundle?) {
         super.onCreate(state)
         setContentView(R.layout.activity_login)
-        MyApplication.component.loginComponent(LoginModule(state)).inject(this)
+        KotApplication.component.loginComponent(LoginModule(state)).inject(this)
         handleIntent(intent)
     }
 

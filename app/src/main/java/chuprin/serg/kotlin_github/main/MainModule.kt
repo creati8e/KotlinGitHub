@@ -1,7 +1,6 @@
 package chuprin.serg.kotlin_github.main
 
 import android.os.Bundle
-import chuprin.serg.kotlin_github.app.data.repository.credentials.CredentialsRepository
 import chuprin.serg.kotlin_github.app.domain.interactor.repositories.RepositoriesInteractor
 import chuprin.serg.kotlin_github.app.domain.interactor.users.UsersInteractor
 import chuprin.serg.kotlin_github.main.presenter.MainPresenter
@@ -25,7 +24,7 @@ class MainModule(bundle: Bundle?) : PresenterModule(bundle) {
     }
 
     @Provides
-    fun provideMainPresenter(repository: CredentialsRepository): MainPresenter {
-        return getPresenter({ MainPresenter(repository) }, MainPresenter::class.java)
+    fun provideMainPresenter(interactor: UsersInteractor): MainPresenter {
+        return getPresenter({ MainPresenter(interactor) }, MainPresenter::class.java)
     }
 }

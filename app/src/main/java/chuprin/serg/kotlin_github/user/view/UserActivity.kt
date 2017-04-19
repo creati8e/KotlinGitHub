@@ -2,10 +2,10 @@ package chuprin.serg.kotlin_github.user.view
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import chuprin.serg.kotlin_github.KotApplication
 import chuprin.serg.kotlin_github.R
 import chuprin.serg.kotlin_github.R.layout.activity_user
 import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryEntity
-import chuprin.serg.kotlin_github.app.di.MyApplication
 import chuprin.serg.kotlin_github.app.presentation.view.utils.load
 import chuprin.serg.kotlin_github.app.presentation.view.utils.visibility
 import chuprin.serg.kotlin_github.main.repositories.view.RepositoryAdapter
@@ -62,7 +62,7 @@ class UserActivity : MvpActivity<UserPresenter>(), UserView {
         if (state != null) {
             bundle.putAll(state)
         }
-        return MyApplication.component.userComponent(UserModule(bundle))
+        return KotApplication.component.userComponent(UserModule(bundle))
     }
 
     override fun showId(id: String) {

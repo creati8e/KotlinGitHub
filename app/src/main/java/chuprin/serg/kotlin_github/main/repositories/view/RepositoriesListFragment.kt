@@ -1,8 +1,8 @@
 package chuprin.serg.kotlin_github.main.repositories.view
 
 import android.os.Bundle
+import chuprin.serg.kotlin_github.KotApplication
 import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryEntity
-import chuprin.serg.kotlin_github.app.di.MyApplication
 import chuprin.serg.kotlin_github.main.MainModule
 import chuprin.serg.kotlin_github.main.repositories.presenter.RepositoriesListPresenter
 import chuprin.serg.kotlin_github.main.view.ListFragment
@@ -18,7 +18,7 @@ class RepositoriesListFragment : ListFragment<GithubRepositoryEntity, Repository
     }
 
     override fun createComponent(savedState: Bundle?): Any {
-        return MyApplication.component.mainComponent(MainModule(savedState))
+        return KotApplication.component.mainComponent(MainModule(savedState))
     }
 
     override fun createAdapter(): RepositoryAdapter = RepositoryAdapter()

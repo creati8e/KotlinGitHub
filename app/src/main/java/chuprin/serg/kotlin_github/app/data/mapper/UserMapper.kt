@@ -6,7 +6,9 @@ import chuprin.serg.kotlin_github.app.data.entity.GithubUserNetworkEntity
 
 fun GithubUserDbEntity.mapDbToEntity(): GithubUserEntity = GithubUserEntity(id, login, avatarUrl, repos, followers, following)
 
-fun GithubUserNetworkEntity.mapNetToDb(): GithubUserDbEntity = GithubUserDbEntity(id, login, avatarUrl, repos, followers, following)
+fun GithubUserNetworkEntity.mapNetToDb(): GithubUserDbEntity = GithubUserDbEntity(id, login, avatarUrl ?: "", repos, followers, following)
+
+fun GithubUserEntity.mapEntityToDb(): GithubUserDbEntity = GithubUserDbEntity(id, login, avatarUrl, repos, followers, following)
 
 fun List<GithubUserNetworkEntity>.mapNetListToDb(): List<GithubUserDbEntity> = map(GithubUserNetworkEntity::mapNetToDb).toList()
 

@@ -11,4 +11,7 @@ interface GithubUsersApi {
 
     @GET("users/{username}")
     fun getUser(@Path("username") userId: String): Observable<GithubUserNetworkEntity>
+
+    @GET("user")
+    fun getMe(): Observable<GithubUserNetworkEntity>
 }

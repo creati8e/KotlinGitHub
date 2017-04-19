@@ -5,19 +5,17 @@ import chuprin.serg.kotlin_github.app.data.Source
 import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryDbEntity
 import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryEntity
 import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryNetworkEntity
-import chuprin.serg.kotlin_github.app.data.mapper.mapDbToEntity
-import chuprin.serg.kotlin_github.app.data.mapper.mapListDbToEntity
-import chuprin.serg.kotlin_github.app.data.mapper.mapNetListToDb
-import chuprin.serg.kotlin_github.app.data.mapper.mapNetToDb
+import chuprin.serg.kotlin_github.app.data.mapper.*
+import chuprin.serg.kotlin_github.app.data.repository.CachePolicy
 import chuprin.serg.kotlin_github.app.data.repository.specification.Specification
 import rx.Observable
 import javax.inject.Inject
 
-class GithubRepositoriesRepository @Inject constructor(private val dbSource: Source<GithubRepositoryDbEntity>,
-                                                       private val netSource: Source<GithubRepositoryNetworkEntity>)
-    : AbsRepository<GithubRepositoryEntity> {
+class GithubRepositoriesRepository
+@Inject constructor(private val dbSource: Source<GithubRepositoryDbEntity>,
+                    private val netSource: Source<GithubRepositoryNetworkEntity>) : AbsRepository<GithubRepositoryEntity> {
 
-    override fun get(specification: Specification): Observable<GithubRepositoryEntity> {
+    override fun get(specification: Specification, cachePolicy: CachePolicy): Observable<GithubRepositoryEntity> {
         val dbRepo = dbSource.get(specification)
                 .map { it.mapDbToEntity() }
 
@@ -43,4 +41,6 @@ class GithubRepositoriesRepository @Inject constructor(private val dbSource: Sou
 
         return Observable.concat(dbRepos, netRepos)
     }
+
+    override fun put(model: GithubRepositoryEntity) = dbSource.put(model.mapEntityToDb())
 }

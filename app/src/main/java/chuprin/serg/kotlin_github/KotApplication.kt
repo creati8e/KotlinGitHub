@@ -1,11 +1,13 @@
-package chuprin.serg.kotlin_github.app.di
+package chuprin.serg.kotlin_github
 
 import android.app.Application
+import chuprin.serg.kotlin_github.app.di.AppComponent
+import chuprin.serg.kotlin_github.app.di.DaggerAppComponent
 import io.realm.Realm
 import io.realm.RealmConfiguration
 
 
-class MyApplication : Application() {
+class KotApplication : Application() {
 
     companion object {
         lateinit var component: AppComponent

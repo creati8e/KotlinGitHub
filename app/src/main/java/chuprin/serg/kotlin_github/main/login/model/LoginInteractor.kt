@@ -3,12 +3,16 @@ package chuprin.serg.kotlin_github.main.login.model
 import android.content.Intent
 import android.net.Uri
 import chuprin.serg.kotlin_github.app.data.network.GithubAuthApi
+import chuprin.serg.kotlin_github.app.data.repository.CachePolicy
 import chuprin.serg.kotlin_github.app.data.repository.credentials.CredentialsRepository
+import chuprin.serg.kotlin_github.app.data.repository.githubUser.GithubUsersRepository
+import chuprin.serg.kotlin_github.app.domain.interactor.users.GetMeSpecification
 import chuprin.serg.kotlin_github.main.login.model.entity.NoAuthError
 import rx.Completable
 import javax.inject.Inject
 
-class LoginInteractor @Inject constructor(private val repository: CredentialsRepository,
+class LoginInteractor @Inject constructor(private val credentialsRepository: CredentialsRepository,
+                                          private val usersRepository: GithubUsersRepository,
                                           private val api: GithubAuthApi) {
 
     private val TOKEN_URL: String = "https://github.com/login/oauth/access_token"
@@ -35,14 +39,17 @@ class LoginInteractor @Inject constructor(private val repository: CredentialsRep
         if (data == null || data.scheme != CALLBACK_URI.scheme || data.host != CALLBACK_URI.host) {
             return Completable.error(NoAuthError())
         }
-        return api.exchangeToken(Uri.parse(TOKEN_URL)
+        val uri = Uri.parse(TOKEN_URL)
                 .buildUpon()
                 .appendQueryParameter(PARAM_CLIENT_ID, CLIENT_ID)
                 .appendQueryParameter(PARAM_CLIENT_SECRET, CLIENT_SECRET)
                 .appendQueryParameter(PARAM_CODE, data.getQueryParameter(PARAM_CODE))
                 .build()
-                .toString())
-                .doOnSuccess { repository.put(it.accessToken) }
+
+        return api.exchangeToken(uri.toString())
+                .doOnSuccess { credentialsRepository.put(it.accessToken) }
+                .flatMapObservable { usersRepository.get(GetMeSpecification(-1), CachePolicy.NET_ONLY()) }
+                .doOnNext { credentialsRepository.putId(it.id) }
                 .toCompletable()
     }
 }

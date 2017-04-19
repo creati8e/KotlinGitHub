@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.support.design.internal.NavigationMenuView
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import chuprin.serg.kotlin_github.KotApplication
 import chuprin.serg.kotlin_github.R
 import chuprin.serg.kotlin_github.R.layout.activity_main
-import chuprin.serg.kotlin_github.app.di.MyApplication
+import chuprin.serg.kotlin_github.app.presentation.view.utils.load
 import chuprin.serg.kotlin_github.main.MainModule
 import chuprin.serg.kotlin_github.main.login.view.LoginActivity
 import chuprin.serg.kotlin_github.main.presenter.MainPresenter
@@ -20,6 +22,7 @@ class MainActivity : MvpActivity<MainPresenter>(), MainView {
 
     @Inject lateinit var presenter: MainPresenter
     lateinit var userLogin: TextView
+    lateinit var userAvatar: ImageView
     private val pagerAdapter: MainPagerAdapter = MainPagerAdapter(supportFragmentManager)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +31,11 @@ class MainActivity : MvpActivity<MainPresenter>(), MainView {
         tablayout.setupWithViewPager(viewpager)
         setSupportActionBar(toolbar)
         setupDrawer()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.viewResumed()
     }
 
     private fun setupDrawer() {
@@ -43,20 +51,19 @@ class MainActivity : MvpActivity<MainPresenter>(), MainView {
             }
         }
 
-        userLogin = navigationView.getHeaderView(0).findViewById(R.id.username) as TextView
+        val headerView = navigationView.getHeaderView(0)
+        userLogin = headerView.findViewById(R.id.username) as TextView
+        userAvatar = headerView.findViewById(R.id.headerImage) as ImageView
         userLogin.setOnClickListener { startActivity<LoginActivity>() }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        presenter.viewResumed()
     }
 
     override fun getLayoutRes(): Int = activity_main
 
-    override fun createComponent(state: Bundle?) = MyApplication.component.mainComponent(MainModule(state))
+    override fun createComponent(state: Bundle?) = KotApplication.component.mainComponent(MainModule(state))
 
-    override fun showUser(login: String) {
+    override fun showUserLogin(login: String) {
         userLogin.text = login
     }
+
+    override fun showUserAvatar(url: String) = userAvatar.load(url, R.drawable.github_logo)
 }
