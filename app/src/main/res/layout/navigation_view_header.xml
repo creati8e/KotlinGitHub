@@ -11,27 +11,38 @@
         android:layout_height="172dp"
         android:scaleType="centerCrop"/>
 
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/tintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginEnd="4dp"
-        android:layout_toStartOf="@+id/loginBtn"
-        android:padding="8dp"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="16sp"
-        tools:text="Username"/>
+        android:background="#b2515151">
 
-    <ImageView
-        android:id="@+id/loginBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:padding="8dp"
-        android:src="@drawable/ic_plus"/>
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="16dp"
+            android:layout_toStartOf="@+id/loginBtn"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="16sp"
+            tools:text="Username"/>
+
+        <ImageView
+            android:id="@+id/loginBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:padding="8dp"
+            android:src="@drawable/ic_plus"/>
+    </RelativeLayout>
+
 </RelativeLayout>

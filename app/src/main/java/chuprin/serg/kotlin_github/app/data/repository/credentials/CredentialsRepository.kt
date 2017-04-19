@@ -16,4 +16,9 @@ class CredentialsRepository @Inject constructor(private val preferences: SharedP
     fun get(): String = preferences.getString(ACCESS_TOKEN, "")
 
     fun getMyId(): Int = preferences.getInt(USER_ID, -1)
+
+    fun clear() {
+        put("")
+        putId(-1)
+    }
 }

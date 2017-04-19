@@ -12,15 +12,32 @@ class MainPresenter @Inject constructor(private val usersInteractor: UsersIntera
         usersInteractor.fetchMe().subscribe({}, {})
     }
 
-    fun viewResumed() = subscribeView(usersInteractor.getMe()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                if (it.id == -1) {
-                    view.showUserLogin("Unauthorized")
-                    view.showUserAvatar("")
-                } else {
-                    view.showUserLogin(it.login)
-                    view.showUserAvatar(it.avatarUrl)
-                }
-            }, { it.printStackTrace() }))
+    fun viewResumed() = loadUser()
+
+    fun loginBtnClicked() = when (usersInteractor.userLoggedIn()) {
+        false -> view.showLogin()
+        true -> view.showLogoutDialog()
+    }
+
+    fun logout() {
+        usersInteractor.logout()
+        loadUser()
+    }
+
+    private fun loadUser() {
+        subscribeView(usersInteractor.getMe()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    if (it.id == -1) {
+                        view.showUserLogin("Unauthorized")
+                        view.showUserAvatar("")
+                        view.showLoginBtnEnabled(true)
+                    } else {
+                        view.showUserLogin(it.login)
+                        view.showUserAvatar(it.avatarUrl)
+                        view.showLoginBtnEnabled(false)
+                    }
+                }, { it.printStackTrace() }))
+    }
+
 }
