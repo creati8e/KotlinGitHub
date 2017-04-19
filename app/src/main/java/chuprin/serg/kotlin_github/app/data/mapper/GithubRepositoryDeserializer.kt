@@ -12,8 +12,8 @@ class GithubRepositoryDeserializer : JsonDeserializer<GithubRepositoryNetworkEnt
         val root = json?.asJsonObject
         return Gson().fromJson(root, GithubRepositoryNetworkEntity::class.java).apply {
             val owner: JsonObject? = root?.getAsJsonObject("owner")
-            owner_id = owner?.getAsJsonPrimitive("id")?.asInt ?: 0
-            owner_name = owner?.getAsJsonPrimitive("login")?.asString ?: ""
+            ownerId = owner?.getAsJsonPrimitive("id")?.asInt ?: 0
+            ownerName = owner?.getAsJsonPrimitive("login")?.asString ?: ""
         }
     }
 }

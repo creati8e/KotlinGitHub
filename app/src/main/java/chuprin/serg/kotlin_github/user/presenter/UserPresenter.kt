@@ -31,7 +31,6 @@ class UserPresenter @Inject constructor(private val usersInteractor: UsersIntera
                 showImage(avatarUrl)
                 showLogin(login)
                 showReposCount(repos.toString())
-                showId(id.toString())
             }
         }
     }

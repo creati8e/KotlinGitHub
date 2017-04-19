@@ -14,7 +14,7 @@ class UserRepositoriesSpecification(private val userLogin: String) : DbSpecifica
 
     override fun toDbResults(): Observable<List<GithubRepositoryDbEntity>> {
         return Observable.just(GithubRepositoryDbEntity()
-                .query { it.equalTo("owner_name", userLogin) })
+                .query { it.equalTo("ownerName", userLogin) })
                 .subscribeOn(Schedulers.io())
     }
 

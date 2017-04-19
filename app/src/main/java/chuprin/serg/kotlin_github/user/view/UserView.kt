@@ -16,7 +16,5 @@ interface UserView : ProgressView {
 
     fun showLogin(login: String)
 
-    fun showId(id: String)
-
     fun showRepositories(repositories: List<GithubRepositoryEntity>)
 }

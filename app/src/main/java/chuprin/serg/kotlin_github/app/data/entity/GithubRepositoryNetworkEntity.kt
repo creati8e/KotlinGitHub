@@ -1,13 +1,16 @@
 package chuprin.serg.kotlin_github.app.data.entity
 
+import com.google.gson.annotations.SerializedName
+
 class GithubRepositoryNetworkEntity(val id: Int = 0,
                                     val name: String = "",
                                     val size: String = "",
-                                    val isPrivate: Boolean = false,
+                                    val private: Boolean = false,
                                     val description: String? = null,
-                                    val watchers: Int = 0,
-                                    val forks: Int = 0,
+                                    @SerializedName("watchers_count") val watchers: Int = 0,
+                                    @SerializedName("stargazers_count") val stargazers: Int = 0,
+                                    @SerializedName("forks_count") val forks: Int = 0,
                                     val issues: Int = 0,
                                     val language: String? = null,
-                                    var owner_id: Int = 0,
-                                    var owner_name: String = "")
+                                    var ownerId: Int = 0,
+                                    var ownerName: String = "")
