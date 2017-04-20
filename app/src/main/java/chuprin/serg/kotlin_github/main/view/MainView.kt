@@ -11,5 +11,5 @@ interface MainView : MvpView {
 
     fun showLogoutDialog()
 
-    fun showLoginBtnEnabled(enabled: Boolean)
+    fun showLoggedIn(enabled: Boolean)
 }

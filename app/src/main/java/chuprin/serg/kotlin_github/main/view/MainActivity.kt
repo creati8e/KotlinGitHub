@@ -13,6 +13,7 @@ import chuprin.serg.kotlin_github.app.presentation.view.utils.load
 import chuprin.serg.kotlin_github.main.MainModule
 import chuprin.serg.kotlin_github.main.login.view.LoginActivity
 import chuprin.serg.kotlin_github.main.presenter.MainPresenter
+import chuprin.serg.kotlin_github.repositories.RepositoriesActivity
 import chuprin.serg.mvpcore.view.MvpActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.alert
@@ -58,6 +59,13 @@ class MainActivity : MvpActivity<MainPresenter>(), MainView {
         userAvatar = headerView.findViewById(R.id.headerImage) as ImageView
         loginBtn = headerView.findViewById(R.id.loginBtn) as ImageView
         loginBtn.setOnClickListener { presenter.loginBtnClicked() }
+
+        navigationView.setNavigationItemSelectedListener {
+            if (it.itemId == R.id.menu_item_my_repositories) {
+                startActivity<RepositoriesActivity>()
+            }
+            true
+        }
     }
 
     override fun getLayoutRes(): Int = activity_main
@@ -79,7 +87,9 @@ class MainActivity : MvpActivity<MainPresenter>(), MainView {
 
     override fun showLogin() = startActivity<LoginActivity>()
 
-    override fun showLoginBtnEnabled(enabled: Boolean) {
+    override fun showLoggedIn(enabled: Boolean) {
         loginBtn.setImageResource(if (enabled) R.drawable.ic_login else R.drawable.ic_logout)
+        navigationView.menu.findItem(R.id.menu_item_my_repositories).isVisible = !enabled
+
     }
 }

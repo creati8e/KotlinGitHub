@@ -31,11 +31,11 @@ class MainPresenter @Inject constructor(private val usersInteractor: UsersIntera
                     if (it.id == -1) {
                         view.showUserLogin("Unauthorized")
                         view.showUserAvatar("")
-                        view.showLoginBtnEnabled(true)
+                        view.showLoggedIn(true)
                     } else {
                         view.showUserLogin(it.login)
                         view.showUserAvatar(it.avatarUrl)
-                        view.showLoginBtnEnabled(false)
+                        view.showLoggedIn(false)
                     }
                 }, { it.printStackTrace() }))
     }

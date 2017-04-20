@@ -47,9 +47,9 @@ class LoginInteractor @Inject constructor(private val credentialsRepository: Cre
                 .build()
 
         return api.exchangeToken(uri.toString())
-                .doOnSuccess { credentialsRepository.put(it.accessToken) }
+                .doOnSuccess { credentialsRepository.putToken(it.accessToken) }
                 .flatMapObservable { usersRepository.get(GetMeSpecification(-1), CachePolicy.NET_ONLY()) }
-                .doOnNext { credentialsRepository.putId(it.id) }
+                .doOnNext { credentialsRepository.putId(it.id); credentialsRepository.putLogin(it.login) }
                 .toCompletable()
     }
 }

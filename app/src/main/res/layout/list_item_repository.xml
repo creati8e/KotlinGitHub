@@ -16,10 +16,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="4dp"
         android:layout_marginStart="16dp"
         android:textSize="16sp"
         tools:text="Repository name"/>
+
+    <TextView
+        android:id="@+id/isForkText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_toEndOf="@+id/name"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="2341"/>
 
     <TextView
         android:id="@+id/description"
@@ -59,7 +69,7 @@
             tools:text="Java"/>
 
         <ImageView
-            android:id="@+id/forkImage"
+            android:id="@+id/forksImage"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="center_vertical"
@@ -67,7 +77,7 @@
             android:src="@drawable/ic_fork"/>
 
         <TextView
-            android:id="@+id/forkText"
+            android:id="@+id/forksText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -91,7 +101,6 @@
             android:layout_marginStart="4dp"
             android:textSize="16sp"
             tools:text="2341"/>
-
 
     </LinearLayout>
 

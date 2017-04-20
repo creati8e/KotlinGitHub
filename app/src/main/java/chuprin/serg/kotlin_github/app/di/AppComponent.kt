@@ -5,6 +5,7 @@ import chuprin.serg.kotlin_github.main.MainComponent
 import chuprin.serg.kotlin_github.main.MainModule
 import chuprin.serg.kotlin_github.main.login.LoginComponent
 import chuprin.serg.kotlin_github.main.login.LoginModule
+import chuprin.serg.kotlin_github.repositories.RepositoriesActivity
 import chuprin.serg.kotlin_github.user.UserComponent
 import chuprin.serg.kotlin_github.user.UserModule
 import dagger.BindsInstance
@@ -26,4 +27,6 @@ interface AppComponent {
         @BindsInstance fun context(context: Context): AppComponent.Builder
         fun build(): AppComponent
     }
+
+    fun inject(activity: RepositoriesActivity)
 }

@@ -9,7 +9,7 @@ class AuthorizationInterceptor
 @Inject constructor(private val repository: CredentialsRepository) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain?): Response? {
-        val token = repository.get()
+        val token = repository.getToken()
         if (token.isEmpty()) {
             return chain?.proceed(chain.request())
         }

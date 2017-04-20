@@ -11,4 +11,5 @@ data class GithubRepositoryEntity(var id: Int = 0,
                                   var issues: Int = 0,
                                   var language: String = "",
                                   var ownerId: Int = 0,
-                                  var ownerName: String = "")
+                                  var ownerName: String = "",
+                                  var fork: Boolean = false)

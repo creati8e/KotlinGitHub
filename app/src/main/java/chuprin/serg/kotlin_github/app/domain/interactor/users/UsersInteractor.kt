@@ -22,7 +22,7 @@ class UsersInteractor @Inject constructor(private var usersRepository: AbsReposi
 
     fun fetchMe(): Completable = getMe(CachePolicy.NET_ONLY()).toCompletable()
 
-    fun userLoggedIn(): Boolean = credentialsRepository.get().isNotEmpty()
+    fun userLoggedIn(): Boolean = credentialsRepository.getToken().isNotEmpty()
 
     fun logout() = credentialsRepository.clear()
 }

@@ -25,7 +25,8 @@ class RepositoryAdapter : BaseAdapter<GithubRepositoryEntity>() {
                 else -> languageText.text = data.language
             }
             stargazersText.text = data.stargazers.toString()
-            forkText.text = data.forks.toString()
+            forksText.text = data.forks.toString()
+            isForkText.setTextOrHide(if (data.fork) "(Fork)" else "")
         }
     }
 

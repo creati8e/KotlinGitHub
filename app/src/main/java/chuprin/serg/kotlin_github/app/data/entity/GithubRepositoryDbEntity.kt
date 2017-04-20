@@ -14,4 +14,5 @@ open class GithubRepositoryDbEntity(@PrimaryKey open var id: Int = 0,
                                     open var issues: Int = 0,
                                     open var language: String? = null,
                                     open var ownerId: Int = 0,
-                                    open var ownerName: String = "") : RealmObject()
+                                    open var ownerName: String = "",
+                                    open var fork: Boolean = false) : RealmObject()

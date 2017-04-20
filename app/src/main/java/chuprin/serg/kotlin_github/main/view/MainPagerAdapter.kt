@@ -12,8 +12,8 @@ class MainPagerAdapter(fm: FragmentManager?) : BasePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> UsersListFragment.newInstance()
-            else -> RepositoriesListFragment.newInstance()
+            0 -> UsersListFragment()
+            else -> RepositoriesListFragment()
         }
     }
 

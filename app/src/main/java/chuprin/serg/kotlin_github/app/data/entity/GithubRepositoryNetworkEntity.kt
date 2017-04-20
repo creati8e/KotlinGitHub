@@ -13,4 +13,5 @@ class GithubRepositoryNetworkEntity(val id: Int = 0,
                                     val issues: Int = 0,
                                     val language: String? = null,
                                     var ownerId: Int = 0,
-                                    var ownerName: String = "")
+                                    var ownerName: String = "",
+                                    var fork: Boolean = false)

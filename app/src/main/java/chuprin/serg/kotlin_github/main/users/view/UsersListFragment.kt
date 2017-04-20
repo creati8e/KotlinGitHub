@@ -14,10 +14,6 @@ class UsersListFragment : ListFragment<GithubUserEntity, UsersAdapter>(), UsersL
 
     @Inject lateinit var presenter: UsersListPresenter
 
-    companion object {
-        fun newInstance(): UsersListFragment = UsersListFragment()
-    }
-
     override fun createAdapter(): UsersAdapter = UsersAdapter()
 
     override fun onItemClicked(model: GithubUserEntity, pos: Int) {
