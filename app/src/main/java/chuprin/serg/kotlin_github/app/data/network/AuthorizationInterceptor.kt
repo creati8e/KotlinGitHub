@@ -1,21 +1,23 @@
 package chuprin.serg.kotlin_github.app.data.network
 
-import chuprin.serg.kotlin_github.app.data.repository.credentials.CredentialsRepository
+import chuprin.serg.kotlin_github.app.domain.account.AccountInteractor
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
 class AuthorizationInterceptor
-@Inject constructor(private val repository: CredentialsRepository) : Interceptor {
+@Inject constructor(private val accountInteractor: AccountInteractor) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain?): Response? {
-        val token = repository.getToken()
-        if (token.isEmpty()) {
-            return chain?.proceed(chain.request())
-        }
-        val request = chain?.request()
-        return chain?.proceed(request?.newBuilder()
-                ?.addHeader("Authorization", "token " + token)
-                ?.build())
+        synchronized(accountInteractor, {
+            with(accountInteractor.getCurrentAccount().token) {
+                if (isEmpty()) {
+                    return chain?.proceed(chain.request())
+                }
+                return chain?.proceed(chain.request()?.newBuilder()
+                        ?.addHeader("Authorization", "token " + this)
+                        ?.build())
+            }
+        })
     }
 }

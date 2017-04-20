@@ -24,6 +24,8 @@ class GithubRepositoriesNetworkSource @Inject constructor(private val api: Githu
         return specification<List<GithubRepositoryNetworkEntity>>(specification).toNetResults(api)
     }
 
+    override fun delete(model: GithubRepositoryNetworkEntity): Unit = Unit
+
     private fun <MODEL> specification(specification: Specification): NetworkSpecification<GithubRepositoriesApi, MODEL> {
         return specification as NetworkSpecification<GithubRepositoriesApi, MODEL>
     }

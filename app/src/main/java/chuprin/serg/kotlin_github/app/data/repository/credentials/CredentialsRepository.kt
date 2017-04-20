@@ -15,4 +15,6 @@ class CredentialsRepository
     override fun getList(specification: Specification) = dbSource.getList(specification)
 
     override fun put(model: GithubAccount) = dbSource.put(model)
+
+    override fun delete(model: GithubAccount) = dbSource.delete(model)
 }

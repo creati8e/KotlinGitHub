@@ -16,7 +16,7 @@ class UserPresenter @Inject constructor(private val usersInteractor: UsersIntera
     override fun onViewAttached() {
         subscribeView(usersInteractor.getUser(login)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ showUser(it) }, ::error))
+                .subscribe({ showUser(it) }, { it.printStackTrace() }))
 
         subscribeView(repositoriesInteractor.getUserRepositories(login)
                 .observeWithProgress(view)
@@ -24,8 +24,8 @@ class UserPresenter @Inject constructor(private val usersInteractor: UsersIntera
     }
 
     private fun showUser(user: GithubUserEntity) {
-        view.apply {
-            user.apply {
+        with(view) {
+            with(user) {
                 showFollowersCount(followers.toString())
                 showFollowingCount(following.toString())
                 showImage(avatarUrl)

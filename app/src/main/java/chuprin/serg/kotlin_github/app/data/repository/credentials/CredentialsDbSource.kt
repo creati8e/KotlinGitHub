@@ -4,6 +4,7 @@ import chuprin.serg.kotlin_github.app.data.Source
 import chuprin.serg.kotlin_github.app.data.entity.GithubAccount
 import chuprin.serg.kotlin_github.app.data.repository.specification.DbSpecification
 import chuprin.serg.kotlin_github.app.data.repository.specification.Specification
+import com.vicpin.krealmextensions.delete
 import com.vicpin.krealmextensions.save
 import com.vicpin.krealmextensions.saveAll
 import rx.Observable
@@ -22,4 +23,6 @@ class CredentialsDbSource : Source<GithubAccount> {
     override fun getList(specification: Specification): Observable<List<GithubAccount>> {
         return (specification as DbSpecification<List<GithubAccount>>).toDbResults()
     }
+
+    override fun delete(model: GithubAccount) = model.delete { model.token }
 }

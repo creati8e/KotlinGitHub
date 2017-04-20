@@ -5,7 +5,7 @@ import chuprin.serg.kotlin_github.app.data.repository.specification.DbSpecificat
 import com.vicpin.krealmextensions.queryAll
 import rx.Observable
 
-class GetAllAccountSpecification : DbSpecification<List<GithubAccount>> {
+class GetAllAccountsSpecification : DbSpecification<List<GithubAccount>> {
 
     override fun toDbResults(): Observable<List<GithubAccount>> = Observable.just(GithubAccount().queryAll())
 }

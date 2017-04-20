@@ -15,7 +15,6 @@ class GithubUsersRepository @Inject constructor(
         private val dbSource: Source<GithubUserDbEntity>,
         private val netSource: Source<GithubUserNetworkEntity>) : AbsRepository<GithubUserEntity> {
 
-    //todo spec
     override fun put(model: GithubUserEntity) = dbSource.put(model.mapEntityToDb())
 
     override fun get(specification: Specification, cachePolicy: CachePolicy): Observable<GithubUserEntity> {
@@ -37,6 +36,8 @@ class GithubUsersRepository @Inject constructor(
 
         return Observable.concat(dbUsers, netUsers)
     }
+
+    override fun delete(model: GithubUserEntity) = dbSource.delete(model.mapEntityToDb())
 
     private fun getDbUser(specification: Specification) = dbSource.get(specification)
             .map(GithubUserDbEntity::mapDbToEntity)

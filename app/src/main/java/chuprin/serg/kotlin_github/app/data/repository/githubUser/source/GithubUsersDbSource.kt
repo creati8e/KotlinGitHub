@@ -7,9 +7,10 @@ import chuprin.serg.kotlin_github.app.data.repository.specification.Specificatio
 import com.vicpin.krealmextensions.save
 import com.vicpin.krealmextensions.saveAll
 import rx.Observable
+import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
-class GithubUsersDbSource : Source<GithubUserDbEntity> {
+class GithubUsersDbSource @Inject constructor() : Source<GithubUserDbEntity> {
 
     override fun getList(specification: Specification): Observable<List<GithubUserDbEntity>> {
         return (specification as DbSpecification<List<GithubUserDbEntity>>).toDbResults()
@@ -18,6 +19,8 @@ class GithubUsersDbSource : Source<GithubUserDbEntity> {
     override fun get(specification: Specification): Observable<GithubUserDbEntity> {
         return (specification as DbSpecification<GithubUserDbEntity>).toDbResults()
     }
+
+    override fun delete(model: GithubUserDbEntity) = Unit
 
     override fun put(model: GithubUserDbEntity) = model.save()
 

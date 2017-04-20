@@ -43,4 +43,6 @@ class GithubRepositoriesRepository
     }
 
     override fun put(model: GithubRepositoryEntity) = dbSource.put(model.mapEntityToDb())
+
+    override fun delete(model: GithubRepositoryEntity) = dbSource.delete(model.mapEntityToDb())
 }

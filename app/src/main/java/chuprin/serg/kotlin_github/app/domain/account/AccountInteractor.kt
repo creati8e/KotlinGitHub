@@ -1,15 +1,17 @@
 package chuprin.serg.kotlin_github.app.domain.account
 
+import chuprin.serg.kotlin_github.app.data.AbsRepository
 import chuprin.serg.kotlin_github.app.data.entity.GithubAccount
-import chuprin.serg.kotlin_github.app.data.repository.credentials.CredentialsRepository
 import javax.inject.Inject
 
 class AccountInteractor
-@Inject constructor(private val credentialsRepository: CredentialsRepository) {
+@Inject constructor(private val credentialsRepository: AbsRepository<GithubAccount>) {
 
-    fun getAllAccounts() = credentialsRepository.getList(GetAllAccountSpecification())
+    fun getAllAccounts() = credentialsRepository.getList(GetAllAccountsSpecification())
 
-    fun getCurrentAccount() = credentialsRepository.get(GetActiveAccountSpecification())
+    fun getCurrentAccount(): GithubAccount = credentialsRepository.get(GetActiveAccountSpecification()).toBlocking().first()
 
     fun setCurrentAccount(account: GithubAccount) = credentialsRepository.put(account)
+
+    fun logout() = credentialsRepository.delete(getCurrentAccount())
 }

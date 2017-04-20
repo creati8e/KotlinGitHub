@@ -25,4 +25,5 @@ class GithubRepositoriesDbSource : Source<GithubRepositoryDbEntity> {
 
     override fun put(model: GithubRepositoryDbEntity) = model.save()
 
+    override fun delete(model: GithubRepositoryDbEntity) = Unit
 }
