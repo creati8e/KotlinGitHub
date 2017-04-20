@@ -6,7 +6,7 @@ import chuprin.serg.kotlin_github.app.data.network.GithubAuthApi
 import chuprin.serg.kotlin_github.app.data.repository.CachePolicy
 import chuprin.serg.kotlin_github.app.data.repository.credentials.CredentialsRepository
 import chuprin.serg.kotlin_github.app.data.repository.githubUser.GithubUsersRepository
-import chuprin.serg.kotlin_github.app.domain.interactor.users.GetMeSpecification
+import chuprin.serg.kotlin_github.app.domain.users.GetMeSpecification
 import chuprin.serg.kotlin_github.main.login.model.entity.NoAuthError
 import rx.Completable
 import javax.inject.Inject

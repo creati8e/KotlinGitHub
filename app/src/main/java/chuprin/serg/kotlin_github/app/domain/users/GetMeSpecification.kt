@@ -1,4 +1,4 @@
-package chuprin.serg.kotlin_github.app.domain.interactor.users
+package chuprin.serg.kotlin_github.app.domain.users
 
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserDbEntity
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserNetworkEntity
@@ -13,10 +13,7 @@ class GetMeSpecification(var userId: Int) : NetworkSpecification<GithubUsersApi,
 
     override fun toDbResults(): Observable<GithubUserDbEntity> {
         val cachedUser = GithubUserDbEntity().queryFirst { query -> query.equalTo("id", userId) }
-        if (cachedUser != null) {
-            return Observable.just(cachedUser)
-        }
-        return Observable.just(GithubUserDbEntity())
+        return Observable.just(cachedUser ?: GithubUserDbEntity())
     }
 
     override fun toNetResults(api: GithubUsersApi): Observable<GithubUserNetworkEntity> {

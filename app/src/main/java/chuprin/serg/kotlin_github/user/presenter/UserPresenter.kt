@@ -1,8 +1,8 @@
 package chuprin.serg.kotlin_github.user.presenter
 
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserEntity
-import chuprin.serg.kotlin_github.app.domain.interactor.repositories.RepositoriesInteractor
-import chuprin.serg.kotlin_github.app.domain.interactor.users.UsersInteractor
+import chuprin.serg.kotlin_github.app.domain.repositories.RepositoriesInteractor
+import chuprin.serg.kotlin_github.app.domain.users.UsersInteractor
 import chuprin.serg.kotlin_github.app.presentation.presenter.observeWithProgress
 import chuprin.serg.kotlin_github.user.view.UserView
 import chuprin.serg.mvpcore.MvpPresenter

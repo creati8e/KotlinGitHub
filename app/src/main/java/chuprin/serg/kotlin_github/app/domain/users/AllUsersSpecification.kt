@@ -1,4 +1,4 @@
-package chuprin.serg.kotlin_github.app.domain.interactor.users
+package chuprin.serg.kotlin_github.app.domain.users
 
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserDbEntity
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserNetworkEntity
@@ -9,7 +9,7 @@ import com.vicpin.krealmextensions.queryAll
 import rx.Observable
 import rx.schedulers.Schedulers
 
-class AllUsersSpecification() : DbSpecification<List<GithubUserDbEntity>>,
+class AllUsersSpecification : DbSpecification<List<GithubUserDbEntity>>,
         NetworkSpecification<GithubUsersApi, List<GithubUserNetworkEntity>> {
 
     override fun toDbResults(): Observable<List<GithubUserDbEntity>> {

@@ -1,6 +1,6 @@
 package chuprin.serg.kotlin_github.main.repositories.presenter
 
-import chuprin.serg.kotlin_github.app.domain.interactor.repositories.RepositoriesInteractor
+import chuprin.serg.kotlin_github.app.domain.repositories.RepositoriesInteractor
 import chuprin.serg.kotlin_github.app.presentation.presenter.observeWithProgress
 import chuprin.serg.kotlin_github.main.repositories.view.RepositoriesListView
 import chuprin.serg.mvpcore.MvpPresenter

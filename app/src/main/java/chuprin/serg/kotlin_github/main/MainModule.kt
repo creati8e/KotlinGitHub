@@ -1,8 +1,8 @@
 package chuprin.serg.kotlin_github.main
 
 import android.os.Bundle
-import chuprin.serg.kotlin_github.app.domain.interactor.repositories.RepositoriesInteractor
-import chuprin.serg.kotlin_github.app.domain.interactor.users.UsersInteractor
+import chuprin.serg.kotlin_github.app.domain.repositories.RepositoriesInteractor
+import chuprin.serg.kotlin_github.app.domain.users.UsersInteractor
 import chuprin.serg.kotlin_github.main.presenter.MainPresenter
 import chuprin.serg.kotlin_github.main.repositories.presenter.RepositoriesListPresenter
 import chuprin.serg.kotlin_github.main.repositories.view.RepositoriesListFragment

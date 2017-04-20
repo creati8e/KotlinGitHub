@@ -1,4 +1,4 @@
-package chuprin.serg.kotlin_github.app.domain.interactor.users
+package chuprin.serg.kotlin_github.app.domain.users
 
 import chuprin.serg.kotlin_github.app.data.AbsRepository
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserEntity

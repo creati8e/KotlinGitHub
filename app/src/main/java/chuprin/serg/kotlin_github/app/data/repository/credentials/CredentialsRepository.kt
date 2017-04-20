@@ -1,30 +1,18 @@
 package chuprin.serg.kotlin_github.app.data.repository.credentials
 
-import android.content.SharedPreferences
+import chuprin.serg.kotlin_github.app.data.AbsRepository
+import chuprin.serg.kotlin_github.app.data.Source
+import chuprin.serg.kotlin_github.app.data.entity.GithubAccount
+import chuprin.serg.kotlin_github.app.data.repository.CachePolicy
+import chuprin.serg.kotlin_github.app.data.repository.specification.Specification
 import javax.inject.Inject
 
-class CredentialsRepository @Inject constructor(private val preferences: SharedPreferences) {
-    companion object {
-        const private val ACCESS_TOKEN = "ACCESS_TOKEN"
-        const private val USER_ID = "USER_ID"
-        const private val USER_LOGIN = "USER_LOGIN"
-    }
+class CredentialsRepository
+@Inject constructor(private val dbSource: Source<GithubAccount>) : AbsRepository<GithubAccount> {
 
-    fun putToken(token: String) = preferences.edit().putString(ACCESS_TOKEN, token).apply()
+    override fun get(specification: Specification, cachePolicy: CachePolicy) = dbSource.get(specification)
 
-    fun putLogin(login: String) = preferences.edit().putString(USER_LOGIN, login).apply()
+    override fun getList(specification: Specification) = dbSource.getList(specification)
 
-    fun putId(id: Int) = preferences.edit().putInt(USER_ID, id).apply()
-
-    fun getToken(): String = preferences.getString(ACCESS_TOKEN, "")
-
-    fun getMyId(): Int = preferences.getInt(USER_ID, -1)
-
-    fun getLogin(): String = preferences.getString(USER_LOGIN, "")
-
-    fun clear() {
-        putToken("")
-        putId(-1)
-    }
+    override fun put(model: GithubAccount) = dbSource.put(model)
 }
-

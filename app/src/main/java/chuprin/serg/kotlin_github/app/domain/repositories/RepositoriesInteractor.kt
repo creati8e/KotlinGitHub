@@ -1,4 +1,4 @@
-package chuprin.serg.kotlin_github.app.domain.interactor.repositories
+package chuprin.serg.kotlin_github.app.domain.repositories
 
 import chuprin.serg.kotlin_github.app.data.AbsRepository
 import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryEntity
