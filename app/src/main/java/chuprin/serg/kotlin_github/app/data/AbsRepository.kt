@@ -11,4 +11,6 @@ interface AbsRepository<MODEL> {
     fun getList(specification: Specification): Observable<List<MODEL>>
 
     fun put(model: MODEL)
+
+    fun delete(model: MODEL)
 }

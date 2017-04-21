@@ -1,25 +1,10 @@
 package chuprin.serg.kotlin_github.app.data.repository.githubUser.source
 
-import chuprin.serg.kotlin_github.app.data.Source
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserDbEntity
-import chuprin.serg.kotlin_github.app.data.repository.specification.DbSpecification
-import chuprin.serg.kotlin_github.app.data.repository.specification.Specification
-import com.vicpin.krealmextensions.save
-import com.vicpin.krealmextensions.saveAll
-import rx.Observable
+import chuprin.serg.kotlin_github.app.data.repository.GenericDbSource
+import javax.inject.Inject
 
-@Suppress("UNCHECKED_CAST")
-class GithubUsersDbSource : Source<GithubUserDbEntity> {
+class GithubUsersDbSource @Inject constructor() : GenericDbSource<GithubUserDbEntity>() {
 
-    override fun getList(specification: Specification): Observable<List<GithubUserDbEntity>> {
-        return (specification as DbSpecification<List<GithubUserDbEntity>>).toDbResults()
-    }
-
-    override fun get(specification: Specification): Observable<GithubUserDbEntity> {
-        return (specification as DbSpecification<GithubUserDbEntity>).toDbResults()
-    }
-
-    override fun put(model: GithubUserDbEntity) = model.save()
-
-    override fun putAll(models: List<GithubUserDbEntity>) = models.saveAll()
+    override fun delete(model: GithubUserDbEntity) = Unit
 }

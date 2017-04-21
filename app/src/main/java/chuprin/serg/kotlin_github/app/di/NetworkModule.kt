@@ -6,7 +6,7 @@ import chuprin.serg.kotlin_github.app.data.network.AuthorizationInterceptor
 import chuprin.serg.kotlin_github.app.data.network.GithubApi
 import chuprin.serg.kotlin_github.app.data.network.GithubRepositoriesApi
 import chuprin.serg.kotlin_github.app.data.network.GithubUsersApi
-import chuprin.serg.kotlin_github.app.data.repository.credentials.CredentialsRepository
+import chuprin.serg.kotlin_github.app.domain.account.AccountInteractor
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -71,5 +71,5 @@ class NetworkModule {
     }
 
     @Provides
-    fun provideAuthInterceptor(repository: CredentialsRepository) = AuthorizationInterceptor(repository)
+    fun provideAuthInterceptor(interactor: AccountInteractor) = AuthorizationInterceptor(interactor)
 }

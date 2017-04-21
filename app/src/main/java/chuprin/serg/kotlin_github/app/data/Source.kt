@@ -12,4 +12,6 @@ interface Source<MODEL> {
     fun get(specification: Specification): Observable<MODEL>
 
     fun getList(specification: Specification): Observable<List<MODEL>>
+
+    fun delete(model: MODEL)
 }

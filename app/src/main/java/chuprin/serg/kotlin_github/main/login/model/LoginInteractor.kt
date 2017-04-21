@@ -2,11 +2,12 @@ package chuprin.serg.kotlin_github.main.login.model
 
 import android.content.Intent
 import android.net.Uri
+import chuprin.serg.kotlin_github.app.data.entity.GithubAccount
 import chuprin.serg.kotlin_github.app.data.network.GithubAuthApi
 import chuprin.serg.kotlin_github.app.data.repository.CachePolicy
 import chuprin.serg.kotlin_github.app.data.repository.credentials.CredentialsRepository
 import chuprin.serg.kotlin_github.app.data.repository.githubUser.GithubUsersRepository
-import chuprin.serg.kotlin_github.app.domain.interactor.users.GetMeSpecification
+import chuprin.serg.kotlin_github.app.domain.users.GetMeSpecification
 import chuprin.serg.kotlin_github.main.login.model.entity.NoAuthError
 import rx.Completable
 import javax.inject.Inject
@@ -47,9 +48,12 @@ class LoginInteractor @Inject constructor(private val credentialsRepository: Cre
                 .build()
 
         return api.exchangeToken(uri.toString())
-                .doOnSuccess { credentialsRepository.put(it.accessToken) }
-                .flatMapObservable { usersRepository.get(GetMeSpecification(-1), CachePolicy.NET_ONLY()) }
-                .doOnNext { credentialsRepository.putId(it.id) }
+                .map { GithubAccount().apply { token = it.accessToken; active = true } }
+                .doOnSuccess { credentialsRepository.put(it) }
+                .flatMapObservable { account ->
+                    usersRepository.get(GetMeSpecification(), CachePolicy.NET_ONLY())
+                            .map { account.apply { id = it.id; login = it.login } }
+                }.doOnNext { credentialsRepository.put(it) }
                 .toCompletable()
     }
 }

@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".user.view.UserActivity"/>
+        <activity android:name=".repositories.RepositoriesActivity"/>
         <activity
             android:name="chuprin.serg.kotlin_github.main.login.view.LoginActivity"
             android:launchMode="singleTop">

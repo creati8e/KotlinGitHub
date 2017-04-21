@@ -1,25 +1,27 @@
-package chuprin.serg.kotlin_github.app.domain.interactor.users
+package chuprin.serg.kotlin_github.app.domain.users
 
 import chuprin.serg.kotlin_github.app.data.AbsRepository
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserEntity
 import chuprin.serg.kotlin_github.app.data.repository.CachePolicy
-import chuprin.serg.kotlin_github.app.data.repository.credentials.CredentialsRepository
+import chuprin.serg.kotlin_github.app.domain.account.AccountInteractor
 import rx.Completable
 import rx.Observable
 import javax.inject.Inject
 
-class UsersInteractor @Inject constructor(private var usersRepository: AbsRepository<GithubUserEntity>,
-                                          private val credentialsRepository: CredentialsRepository) {
+class UsersInteractor @Inject constructor(private val usersRepository: AbsRepository<GithubUserEntity>,
+                                          private val accountInteractor: AccountInteractor) {
 
     fun getUsers(): Observable<List<GithubUserEntity>> = usersRepository.getList(AllUsersSpecification())
 
     fun getUser(login: String): Observable<GithubUserEntity> = usersRepository.get(UserLoginSpecification(login))
 
     fun getMe(cachePolicy: CachePolicy = CachePolicy.CACHE_ONLY()): Observable<GithubUserEntity> {
-        val meSpecification = GetMeSpecification(credentialsRepository.getMyId())
-        return usersRepository.get(meSpecification, cachePolicy)
+        return usersRepository.get(UserLoginSpecification(accountInteractor.getCurrentAccount().login), cachePolicy)
     }
 
     fun fetchMe(): Completable = getMe(CachePolicy.NET_ONLY()).toCompletable()
 
+    fun userLoggedIn(): Boolean = accountInteractor.getCurrentAccount().token.isNotEmpty()
+
+    fun logout() = accountInteractor.logout()
 }

@@ -13,8 +13,10 @@ import chuprin.serg.kotlin_github.app.presentation.view.utils.load
 import chuprin.serg.kotlin_github.main.MainModule
 import chuprin.serg.kotlin_github.main.login.view.LoginActivity
 import chuprin.serg.kotlin_github.main.presenter.MainPresenter
+import chuprin.serg.kotlin_github.repositories.RepositoriesActivity
 import chuprin.serg.mvpcore.view.MvpActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
@@ -23,6 +25,7 @@ class MainActivity : MvpActivity<MainPresenter>(), MainView {
     @Inject lateinit var presenter: MainPresenter
     lateinit var userLogin: TextView
     lateinit var userAvatar: ImageView
+    lateinit var loginBtn: ImageView
     private val pagerAdapter: MainPagerAdapter = MainPagerAdapter(supportFragmentManager)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +57,15 @@ class MainActivity : MvpActivity<MainPresenter>(), MainView {
         val headerView = navigationView.getHeaderView(0)
         userLogin = headerView.findViewById(R.id.username) as TextView
         userAvatar = headerView.findViewById(R.id.headerImage) as ImageView
-        userLogin.setOnClickListener { startActivity<LoginActivity>() }
+        loginBtn = headerView.findViewById(R.id.loginBtn) as ImageView
+        loginBtn.setOnClickListener { presenter.loginBtnClicked() }
+
+        navigationView.setNavigationItemSelectedListener {
+            if (it.itemId == R.id.menu_item_my_repositories) {
+                startActivity<RepositoriesActivity>()
+            }
+            true
+        }
     }
 
     override fun getLayoutRes(): Int = activity_main
@@ -66,4 +77,19 @@ class MainActivity : MvpActivity<MainPresenter>(), MainView {
     }
 
     override fun showUserAvatar(url: String) = userAvatar.load(url, R.drawable.github_logo)
+
+    override fun showLogoutDialog() {
+        alert("Are you really want to log out?") {
+            yesButton { presenter.logout() }
+            noButton { dismiss() }
+        }.show()
+    }
+
+    override fun showLogin() = startActivity<LoginActivity>()
+
+    override fun showLoggedIn(enabled: Boolean) {
+        loginBtn.setImageResource(if (enabled) R.drawable.ic_login else R.drawable.ic_logout)
+        navigationView.menu.findItem(R.id.menu_item_my_repositories).isVisible = !enabled
+
+    }
 }

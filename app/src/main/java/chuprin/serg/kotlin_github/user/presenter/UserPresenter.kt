@@ -1,8 +1,8 @@
 package chuprin.serg.kotlin_github.user.presenter
 
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserEntity
-import chuprin.serg.kotlin_github.app.domain.interactor.repositories.RepositoriesInteractor
-import chuprin.serg.kotlin_github.app.domain.interactor.users.UsersInteractor
+import chuprin.serg.kotlin_github.app.domain.repositories.RepositoriesInteractor
+import chuprin.serg.kotlin_github.app.domain.users.UsersInteractor
 import chuprin.serg.kotlin_github.app.presentation.presenter.observeWithProgress
 import chuprin.serg.kotlin_github.user.view.UserView
 import chuprin.serg.mvpcore.MvpPresenter
@@ -16,7 +16,7 @@ class UserPresenter @Inject constructor(private val usersInteractor: UsersIntera
     override fun onViewAttached() {
         subscribeView(usersInteractor.getUser(login)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ showUser(it) }, ::error))
+                .subscribe({ showUser(it) }, { it.printStackTrace() }))
 
         subscribeView(repositoriesInteractor.getUserRepositories(login)
                 .observeWithProgress(view)
@@ -24,14 +24,13 @@ class UserPresenter @Inject constructor(private val usersInteractor: UsersIntera
     }
 
     private fun showUser(user: GithubUserEntity) {
-        view.apply {
-            user.apply {
+        with(view) {
+            with(user) {
                 showFollowersCount(followers.toString())
                 showFollowingCount(following.toString())
                 showImage(avatarUrl)
                 showLogin(login)
                 showReposCount(repos.toString())
-                showId(id.toString())
             }
         }
     }

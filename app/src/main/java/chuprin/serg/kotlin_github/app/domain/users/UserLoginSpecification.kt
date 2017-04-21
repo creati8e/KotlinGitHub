@@ -1,4 +1,4 @@
-package chuprin.serg.kotlin_github.app.domain.interactor.users
+package chuprin.serg.kotlin_github.app.domain.users
 
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserDbEntity
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserNetworkEntity
@@ -8,7 +8,7 @@ import chuprin.serg.kotlin_github.app.data.repository.specification.NetworkSpeci
 import com.vicpin.krealmextensions.queryFirst
 import rx.Observable
 
-class UserLoginSpecification(private val login: String) : DbSpecification<GithubUserDbEntity>,
+open class UserLoginSpecification(var login: String) : DbSpecification<GithubUserDbEntity>,
         NetworkSpecification<GithubUsersApi, GithubUserNetworkEntity> {
 
     override fun toDbResults(): Observable<GithubUserDbEntity> {

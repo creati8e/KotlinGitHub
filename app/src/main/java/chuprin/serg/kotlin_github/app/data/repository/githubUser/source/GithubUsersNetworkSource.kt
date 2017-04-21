@@ -19,6 +19,8 @@ class GithubUsersNetworkSource @Inject constructor(val api: GithubUsersApi) : So
         return specification<GithubUserNetworkEntity>(specification).toNetResults(api)
     }
 
+    override fun delete(model: GithubUserNetworkEntity) = Unit
+
     override fun getList(specification: Specification): Observable<List<GithubUserNetworkEntity>> {
         return specification<List<GithubUserNetworkEntity>>(specification).toNetResults(api)
     }

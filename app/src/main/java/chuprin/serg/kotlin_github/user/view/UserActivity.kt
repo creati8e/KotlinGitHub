@@ -2,11 +2,13 @@ package chuprin.serg.kotlin_github.user.view
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import chuprin.serg.kotlin_github.KotApplication
 import chuprin.serg.kotlin_github.R
 import chuprin.serg.kotlin_github.R.layout.activity_user
 import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryEntity
 import chuprin.serg.kotlin_github.app.presentation.view.utils.load
+import chuprin.serg.kotlin_github.app.presentation.view.utils.putAll
 import chuprin.serg.kotlin_github.app.presentation.view.utils.visibility
 import chuprin.serg.kotlin_github.main.repositories.view.RepositoryAdapter
 import chuprin.serg.kotlin_github.user.UserModule
@@ -25,8 +27,6 @@ class UserActivity : MvpActivity<UserPresenter>(), UserView {
         super.onCreate(savedInstanceState)
         recyclerView.adapter = repositoriesAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-        nestedScrollView.isSmoothScrollingEnabled = true
-        recyclerView.isNestedScrollingEnabled = false
 
         setSupportActionBar(toolbar)
         supportActionBar?.apply { setDisplayHomeAsUpEnabled(true); title = "" }
@@ -55,22 +55,16 @@ class UserActivity : MvpActivity<UserPresenter>(), UserView {
     }
 
     override fun createComponent(state: Bundle?): Any {
-        val bundle = Bundle()
-        if (intent.extras != null) {
-            bundle.putAll(intent.extras)
-        }
-        if (state != null) {
-            bundle.putAll(state)
-        }
-        return KotApplication.component.userComponent(UserModule(bundle))
-    }
-
-    override fun showId(id: String) {
-        userId.text = id
+        return KotApplication.component.userComponent(UserModule(Bundle().putAll(state, intent.extras)))
     }
 
     override fun showRepositories(repositories: List<GithubRepositoryEntity>) {
         repositoriesAdapter.setData(repositories)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) super.onBackPressed()
+        return super.onOptionsItemSelected(item)
     }
 
     override fun showProgress(visible: Boolean) = progress.visibility(visible)
