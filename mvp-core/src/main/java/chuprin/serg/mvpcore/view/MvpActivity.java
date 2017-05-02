@@ -6,8 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import chuprin.serg.mvpcore.MvpPresenter;
 import chuprin.serg.mvpcore.PresenterHelper;
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 
 public abstract class MvpActivity<PRESENTER extends MvpPresenter>
@@ -15,7 +15,7 @@ public abstract class MvpActivity<PRESENTER extends MvpPresenter>
         implements MvpView {
 
     private PresenterHelper<PRESENTER> helper;
-    private CompositeSubscription mCompositeSubscription;
+    private CompositeDisposable mCompositeDisposable;
 
     @Override
     protected void onResume() {
@@ -28,7 +28,7 @@ public abstract class MvpActivity<PRESENTER extends MvpPresenter>
     protected void onCreate(@Nullable Bundle state) {
         super.onCreate(state);
         setContentView(getLayoutRes());
-        mCompositeSubscription = new CompositeSubscription();
+        mCompositeDisposable = new CompositeDisposable();
         helper = new PresenterHelper<>(this, createComponent(state));
         helper.attachView();
     }
@@ -36,7 +36,7 @@ public abstract class MvpActivity<PRESENTER extends MvpPresenter>
     @Override
     protected void onStop() {
         super.onStop();
-        mCompositeSubscription.clear();
+        mCompositeDisposable.clear();
     }
 
     @Override
@@ -54,8 +54,8 @@ public abstract class MvpActivity<PRESENTER extends MvpPresenter>
 
     protected abstract int getLayoutRes();
 
-    protected void addSubscription(Subscription subscription) {
-        mCompositeSubscription.add(subscription);
+    protected void addSubscription(Disposable disposable) {
+        mCompositeDisposable.add(disposable);
     }
 
     protected PRESENTER getPresenter() {

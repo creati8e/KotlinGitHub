@@ -4,10 +4,7 @@ import android.os.Bundle;
 
 import chuprin.serg.mvpcore.MvpPresenter;
 import chuprin.serg.mvpcore.view.MvpView;
-import dagger.Module;
-import rx.functions.Func0;
 
-@Module
 public class PresenterModule {
     protected Bundle bundle;
     protected PresenterCache cache = PresenterCache.getInstance();
@@ -24,7 +21,7 @@ public class PresenterModule {
     }
 
     @SuppressWarnings("unchecked")
-    protected <P extends MvpPresenter<? extends MvpView>> P getPresenter(Func0<P> func0, Class<P> pClass) {
+    protected <P extends MvpPresenter<? extends MvpView>> P getPresenter(Func<P> func0, Class<P> pClass) {
         MvpPresenter<? extends MvpView> cached = getCached();
         if (bundle == null || cached == null) {
             return func0.call();

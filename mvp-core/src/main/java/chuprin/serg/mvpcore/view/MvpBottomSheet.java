@@ -6,20 +6,20 @@ import android.support.design.widget.BottomSheetDialogFragment;
 
 import chuprin.serg.mvpcore.MvpPresenter;
 import chuprin.serg.mvpcore.PresenterHelper;
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 
 public abstract class MvpBottomSheet<PRESENTER extends MvpPresenter> extends BottomSheetDialogFragment
         implements MvpView {
 
     private PresenterHelper<PRESENTER> helper;
-    private CompositeSubscription mCompositeSubscription;
+    private CompositeDisposable mCompositeDisposable;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCompositeSubscription = new CompositeSubscription();
+        mCompositeDisposable = new CompositeDisposable();
         helper = new PresenterHelper<>(this, createComponent(savedInstanceState));
         helper.attachView();
     }
@@ -33,7 +33,7 @@ public abstract class MvpBottomSheet<PRESENTER extends MvpPresenter> extends Bot
     @Override
     public void onStop() {
         super.onStop();
-        mCompositeSubscription.clear();
+        mCompositeDisposable.clear();
     }
 
     @Override
@@ -50,8 +50,8 @@ public abstract class MvpBottomSheet<PRESENTER extends MvpPresenter> extends Bot
     }
 
     @SuppressWarnings("unused")
-    protected void addSubscription(Subscription subscription) {
-        mCompositeSubscription.add(subscription);
+    protected void addSubscription(Disposable disposable) {
+        mCompositeDisposable.add(disposable);
     }
 
     protected abstract Object createComponent(@Nullable Bundle savedState);

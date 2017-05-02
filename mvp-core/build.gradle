@@ -17,8 +17,7 @@ android {
         }
     }
 }
-def daggerVer = '2.9'
-def supportVer = '25.3.0'
+def supportVer = '25.3.1'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -27,11 +26,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:$supportVer"
     compile "com.android.support:design:$supportVer"
 
-    //di
-    compile "com.google.dagger:dagger:$daggerVer"
-    apt "com.google.dagger:dagger-compiler:$daggerVer"
-
     //rx
-    compile 'io.reactivex:rxjava:1.2.6'
-    compile 'io.reactivex:rxandroid:1.2.1'
+    compile "io.reactivex.rxjava2:rxjava:2.1.0"
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 }

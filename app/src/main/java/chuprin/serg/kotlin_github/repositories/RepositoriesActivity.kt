@@ -24,7 +24,7 @@ class RepositoriesActivity : AppCompatActivity() {
 
         //todo
         val fragment = instanceOf<RepositoriesListFragment>(
-                RepositoriesListFragment.BUNDLE_USER_LOGIN to credentialsRepository.get(GetActiveAccountSpecification()).toBlocking().first().login)
+                RepositoriesListFragment.BUNDLE_USER_LOGIN to credentialsRepository.get(GetActiveAccountSpecification()).blockingFirst().login)
 
         supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, fragment)

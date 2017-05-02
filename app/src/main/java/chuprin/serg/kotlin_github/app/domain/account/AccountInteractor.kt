@@ -9,7 +9,7 @@ class AccountInteractor
 
     fun getAllAccounts() = credentialsRepository.getList(GetAllAccountsSpecification())
 
-    fun getCurrentAccount(): GithubAccount = credentialsRepository.get(GetActiveAccountSpecification()).toBlocking().first()
+    fun getCurrentAccount(): GithubAccount = credentialsRepository.get(GetActiveAccountSpecification()).blockingFirst()
 
     fun setCurrentAccount(account: GithubAccount) = credentialsRepository.put(account)
 

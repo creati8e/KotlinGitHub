@@ -6,8 +6,8 @@ import chuprin.serg.kotlin_github.app.data.network.GithubRepositoriesApi
 import chuprin.serg.kotlin_github.app.data.repository.specification.DbSpecification
 import chuprin.serg.kotlin_github.app.data.repository.specification.NetworkSpecification
 import com.vicpin.krealmextensions.query
-import rx.Observable
-import rx.schedulers.Schedulers
+import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 
 class UserRepositoriesSpecification(private val userLogin: String) : DbSpecification<List<GithubRepositoryDbEntity>>,
         NetworkSpecification<GithubRepositoriesApi, List<GithubRepositoryNetworkEntity>> {

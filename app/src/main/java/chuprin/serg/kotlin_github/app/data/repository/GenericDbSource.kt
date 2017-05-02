@@ -5,8 +5,8 @@ import chuprin.serg.kotlin_github.app.data.repository.specification.DbSpecificat
 import chuprin.serg.kotlin_github.app.data.repository.specification.Specification
 import com.vicpin.krealmextensions.save
 import com.vicpin.krealmextensions.saveAll
+import io.reactivex.Observable
 import io.realm.RealmObject
-import rx.Observable
 
 @Suppress("UNCHECKED_CAST")
 abstract class GenericDbSource<MODEL : RealmObject> : Source<MODEL> {

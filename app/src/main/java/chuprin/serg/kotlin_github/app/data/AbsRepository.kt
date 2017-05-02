@@ -2,7 +2,7 @@ package chuprin.serg.kotlin_github.app.data
 
 import chuprin.serg.kotlin_github.app.data.repository.CachePolicy
 import chuprin.serg.kotlin_github.app.data.repository.specification.Specification
-import rx.Observable
+import io.reactivex.Observable
 
 interface AbsRepository<MODEL> {
 

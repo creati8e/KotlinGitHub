@@ -8,7 +8,7 @@ import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryNetworkEntity
 import chuprin.serg.kotlin_github.app.data.mapper.*
 import chuprin.serg.kotlin_github.app.data.repository.CachePolicy
 import chuprin.serg.kotlin_github.app.data.repository.specification.Specification
-import rx.Observable
+import io.reactivex.Observable
 import javax.inject.Inject
 
 class GithubRepositoriesRepository
@@ -22,7 +22,7 @@ class GithubRepositoriesRepository
         val netRepo = netSource.get(specification)
                 .doOnNext { dbSource.put(it.mapNetToDb()) }
                 .flatMap { dbSource.get(specification) }
-                .onErrorResumeNext { dbSource.get(specification) }
+                .onErrorResumeNext { _: Throwable? -> dbSource.get(specification) }
                 .map { it.mapDbToEntity() }
 
         return Observable.concat(dbRepo, netRepo)

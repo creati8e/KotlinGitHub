@@ -5,7 +5,7 @@ import chuprin.serg.kotlin_github.app.data.entity.GithubUserNetworkEntity
 import chuprin.serg.kotlin_github.app.data.network.GithubUsersApi
 import chuprin.serg.kotlin_github.app.data.repository.specification.NetworkSpecification
 import chuprin.serg.kotlin_github.app.data.repository.specification.Specification
-import rx.Observable
+import io.reactivex.Observable
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")

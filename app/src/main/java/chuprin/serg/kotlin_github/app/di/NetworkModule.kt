@@ -10,12 +10,12 @@ import chuprin.serg.kotlin_github.app.domain.account.AccountInteractor
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import rx.schedulers.Schedulers
 
 
 @Module
@@ -32,7 +32,7 @@ class NetworkModule {
     }
 
     @Provides
-    fun provideRetrofit(rxAdapter: RxJavaCallAdapterFactory, client: OkHttpClient,
+    fun provideRetrofit(rxAdapter: RxJava2CallAdapterFactory, client: OkHttpClient,
                         gsonConverterFactory: GsonConverterFactory): Retrofit {
         return Retrofit.Builder()
                 .client(client)
@@ -43,8 +43,8 @@ class NetworkModule {
     }
 
     @Provides
-    fun provideRxAdapterFactory(): RxJavaCallAdapterFactory {
-        return RxJavaCallAdapterFactory.createWithScheduler(Schedulers.newThread())
+    fun provideRxAdapterFactory(): RxJava2CallAdapterFactory {
+        return RxJava2CallAdapterFactory.createWithScheduler(Schedulers.newThread())
     }
 
     @Provides

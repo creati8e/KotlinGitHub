@@ -3,7 +3,7 @@ package chuprin.serg.kotlin_github.main.presenter
 import chuprin.serg.kotlin_github.app.domain.users.UsersInteractor
 import chuprin.serg.kotlin_github.main.view.MainView
 import chuprin.serg.mvpcore.MvpPresenter
-import rx.android.schedulers.AndroidSchedulers
+import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 class MainPresenter @Inject constructor(private val usersInteractor: UsersInteractor) : MvpPresenter<MainView>() {
