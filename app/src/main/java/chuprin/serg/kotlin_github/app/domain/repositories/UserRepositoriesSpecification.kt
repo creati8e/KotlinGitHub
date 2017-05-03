@@ -18,5 +18,7 @@ class UserRepositoriesSpecification(private val userLogin: String) : DbSpecifica
                 .subscribeOn(Schedulers.io())
     }
 
-    override fun toNetResults(api: GithubRepositoriesApi) = api.getUserRepositories(userLogin)
+    override fun toNetResults(api: GithubRepositoriesApi): Observable<List<GithubRepositoryNetworkEntity>> {
+        return api.getUserRepositories(userLogin)
+    }
 }

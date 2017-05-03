@@ -5,7 +5,6 @@ import chuprin.serg.kotlin_github.R
 import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryEntity
 import chuprin.serg.kotlin_github.app.presentation.view.BaseAdapter
 import chuprin.serg.kotlin_github.app.presentation.view.setListener
-import chuprin.serg.kotlin_github.app.presentation.view.utils.setTextOrHide
 import chuprin.serg.kotlin_github.app.presentation.view.utils.visibility
 import kotlinx.android.synthetic.main.list_item_repository.view.*
 
@@ -17,7 +16,7 @@ class RepositoryAdapter : BaseAdapter<GithubRepositoryEntity>() {
         with(vh.itemView) {
             name.text = data.name
 
-            description.setTextOrHide(data.description)
+            description.text = data.description
             when {
                 data.language.isEmpty() -> {
                     languageImage.visibility(false); languageText.visibility(false)
@@ -26,7 +25,7 @@ class RepositoryAdapter : BaseAdapter<GithubRepositoryEntity>() {
             }
             stargazersText.text = data.stargazers.toString()
             forksText.text = data.forks.toString()
-            isForkText.setTextOrHide(if (data.fork) "(Fork)" else "")
+            isForkText.text = if (data.fork) "(Fork)" else ""
         }
     }
 

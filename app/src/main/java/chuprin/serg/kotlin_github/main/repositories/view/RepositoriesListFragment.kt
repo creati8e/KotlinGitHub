@@ -28,4 +28,8 @@ class RepositoriesListFragment : ListFragment<GithubRepositoryEntity, Repository
         activity.toast("Clicked: " + model.name)
     }
 
+    fun applyFilter(id: Int) {
+        presenter.applyFilter(id)
+    }
+
 }

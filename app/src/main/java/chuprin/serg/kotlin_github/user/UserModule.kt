@@ -1,4 +1,4 @@
-package chuprin.serg.kotlin_github.user;
+package chuprin.serg.kotlin_github.user
 
 import android.os.Bundle
 import chuprin.serg.kotlin_github.app.di.scopes.PerView

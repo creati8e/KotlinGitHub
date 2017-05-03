@@ -8,7 +8,7 @@ interface AbsRepository<MODEL> {
 
     fun get(specification: Specification, cachePolicy: CachePolicy = CachePolicy.BOTH()): Observable<MODEL>
 
-    fun getList(specification: Specification): Observable<List<MODEL>>
+    fun getList(specification: Specification, cachePolicy: CachePolicy = CachePolicy.BOTH()): Observable<List<MODEL>>
 
     fun put(model: MODEL)
 
