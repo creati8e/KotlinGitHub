@@ -1,8 +1,8 @@
 package chuprin.serg.kotlin_github.main.users.view
 
-import android.os.Bundle
 import chuprin.serg.kotlin_github.KotApplication
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserEntity
+import chuprin.serg.kotlin_github.main.MainComponent
 import chuprin.serg.kotlin_github.main.MainModule
 import chuprin.serg.kotlin_github.main.users.presenter.UsersListPresenter
 import chuprin.serg.kotlin_github.main.view.ListFragment
@@ -20,7 +20,7 @@ class UsersListFragment : ListFragment<GithubUserEntity, UsersAdapter>(), UsersL
         activity.startActivity<UserActivity>("login" to model.login)
     }
 
-    override fun createComponent(savedState: Bundle?): Any {
-        return KotApplication.component.mainComponent(MainModule(savedState))
-    }
+    override fun createComponent() = KotApplication.component.mainComponent(MainModule(arguments))
+
+    override fun componentClass(): Class<*> = MainComponent::class.java
 }

@@ -7,9 +7,9 @@ import android.view.View
 import chuprin.serg.kotlin_github.R
 import chuprin.serg.kotlin_github.app.presentation.view.BaseAdapter
 import chuprin.serg.kotlin_github.app.presentation.view.utils.visibility
-import chuprin.serg.mvpcore.MvpPresenter
-import chuprin.serg.mvpcore.view.MvpFragment
 import kotlinx.android.synthetic.main.fragment_list.*
+import mvp_core.MvpPresenter
+import mvp_core.view.MvpFragment
 import org.jetbrains.anko.toast
 
 abstract class ListFragment<MODEL, ADAPTER : BaseAdapter<MODEL>>

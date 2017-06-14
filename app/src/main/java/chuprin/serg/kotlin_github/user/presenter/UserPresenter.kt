@@ -5,8 +5,8 @@ import chuprin.serg.kotlin_github.app.domain.repositories.RepositoriesInteractor
 import chuprin.serg.kotlin_github.app.domain.users.UsersInteractor
 import chuprin.serg.kotlin_github.app.presentation.presenter.observeWithProgress
 import chuprin.serg.kotlin_github.user.view.UserView
-import chuprin.serg.mvpcore.MvpPresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
+import mvp_core.MvpPresenter
 import javax.inject.Inject
 
 class UserPresenter @Inject constructor(private val usersInteractor: UsersInteractor,

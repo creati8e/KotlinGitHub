@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(state: Bundle?) {
         super.onCreate(state)
         setContentView(R.layout.activity_login)
-        KotApplication.component.loginComponent(LoginModule(state)).inject(this)
+        KotApplication.component.loginComponent(LoginModule()).inject(this)
         handleIntent(intent)
     }
 

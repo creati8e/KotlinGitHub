@@ -5,8 +5,9 @@ import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryEntity
 import chuprin.serg.kotlin_github.app.domain.repositories.RepositoriesInteractor
 import chuprin.serg.kotlin_github.app.presentation.presenter.observeWithProgress
 import chuprin.serg.kotlin_github.main.repositories.view.RepositoriesListView
-import chuprin.serg.mvpcore.MvpPresenter
+
 import io.reactivex.Observable
+import mvp_core.MvpPresenter
 import javax.inject.Inject
 
 class RepositoriesListPresenter
