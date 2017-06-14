@@ -166,7 +166,7 @@ object CustomTabsHelper {
                 .filter { it.enabled && it.exported && it.packageName != context.packageName }
                 .mapTo(chooserIntents) {
                     Intent(intent).apply {
-                        `package` = it.packageName;
+                        `package` = it.packageName
                         setDataAndType(uri, intent.type)
                     }
                 }

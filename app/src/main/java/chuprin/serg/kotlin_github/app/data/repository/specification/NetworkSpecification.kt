@@ -1,6 +1,7 @@
 package chuprin.serg.kotlin_github.app.data.repository.specification
 
-import rx.Observable
+import io.reactivex.Observable
+
 
 interface NetworkSpecification<in API, MODEL> : Specification {
 

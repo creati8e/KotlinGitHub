@@ -1,7 +1,7 @@
 package chuprin.serg.kotlin_github.app.data
 
 import chuprin.serg.kotlin_github.app.data.repository.specification.Specification
-import rx.Observable
+import io.reactivex.Observable
 
 interface Source<MODEL> {
 

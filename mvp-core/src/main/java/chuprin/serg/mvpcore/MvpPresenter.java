@@ -2,11 +2,11 @@ package chuprin.serg.mvpcore;
 
 import chuprin.serg.mvpcore.view.MvpView;
 import chuprin.serg.mvpcore.view.NullObjectView;
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 public abstract class MvpPresenter<VIEW extends MvpView> {
-    private CompositeSubscription viewSubscription = new CompositeSubscription();
+    private CompositeDisposable viewSubscription = new CompositeDisposable();
     private NullObjectView<VIEW> view = new NullObjectView<>();
     private boolean viewAttached;
 
@@ -36,7 +36,7 @@ public abstract class MvpPresenter<VIEW extends MvpView> {
         viewSubscription.clear();
     }
 
-    final protected void subscribeView(Subscription subscription) {
-        viewSubscription.add(subscription);
+    final protected void subscribeView(Disposable disposable) {
+        viewSubscription.add(disposable);
     }
 }

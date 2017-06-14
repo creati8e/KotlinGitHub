@@ -9,7 +9,7 @@ import chuprin.serg.kotlin_github.app.data.repository.credentials.CredentialsRep
 import chuprin.serg.kotlin_github.app.data.repository.githubUser.GithubUsersRepository
 import chuprin.serg.kotlin_github.app.domain.users.GetMeSpecification
 import chuprin.serg.kotlin_github.main.login.model.entity.NoAuthError
-import rx.Completable
+import io.reactivex.Completable
 import javax.inject.Inject
 
 class LoginInteractor @Inject constructor(private val credentialsRepository: CredentialsRepository,
@@ -54,6 +54,6 @@ class LoginInteractor @Inject constructor(private val credentialsRepository: Cre
                     usersRepository.get(GetMeSpecification(), CachePolicy.NET_ONLY())
                             .map { account.apply { id = it.id; login = it.login } }
                 }.doOnNext { credentialsRepository.put(it) }
-                .toCompletable()
+                .ignoreElements()
     }
 }

@@ -10,14 +10,17 @@ import chuprin.serg.kotlin_github.KotApplication
 import chuprin.serg.kotlin_github.R
 import chuprin.serg.kotlin_github.R.layout.activity_main
 import chuprin.serg.kotlin_github.app.presentation.view.utils.load
+import chuprin.serg.kotlin_github.main.MainComponent
 import chuprin.serg.kotlin_github.main.MainModule
 import chuprin.serg.kotlin_github.main.login.view.LoginActivity
 import chuprin.serg.kotlin_github.main.presenter.MainPresenter
 import chuprin.serg.kotlin_github.repositories.RepositoriesActivity
-import chuprin.serg.mvpcore.view.MvpActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import mvp_core.view.MvpActivity
 import org.jetbrains.anko.alert
+import org.jetbrains.anko.noButton
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.yesButton
 import javax.inject.Inject
 
 class MainActivity : MvpActivity<MainPresenter>(), MainView {
@@ -70,7 +73,9 @@ class MainActivity : MvpActivity<MainPresenter>(), MainView {
 
     override fun getLayoutRes(): Int = activity_main
 
-    override fun createComponent(state: Bundle?) = KotApplication.component.mainComponent(MainModule(state))
+    override fun createComponent() = KotApplication.component.mainComponent(MainModule(intent.extras))
+
+    override fun componentClass(): Class<*> = MainComponent::class.java
 
     override fun showUserLogin(login: String) {
         userLogin.text = login
@@ -81,7 +86,7 @@ class MainActivity : MvpActivity<MainPresenter>(), MainView {
     override fun showLogoutDialog() {
         alert("Are you really want to log out?") {
             yesButton { presenter.logout() }
-            noButton { dismiss() }
+            noButton { dialog -> dialog.dismiss() }
         }.show()
     }
 

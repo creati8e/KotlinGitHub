@@ -6,7 +6,7 @@ import chuprin.serg.kotlin_github.app.data.network.GithubUsersApi
 import chuprin.serg.kotlin_github.app.data.repository.specification.DbSpecification
 import chuprin.serg.kotlin_github.app.data.repository.specification.NetworkSpecification
 import com.vicpin.krealmextensions.queryFirst
-import rx.Observable
+import io.reactivex.Observable
 
 open class UserLoginSpecification(var login: String) : DbSpecification<GithubUserDbEntity>,
         NetworkSpecification<GithubUsersApi, GithubUserNetworkEntity> {

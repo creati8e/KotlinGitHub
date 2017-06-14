@@ -3,7 +3,8 @@ package chuprin.serg.kotlin_github.main.users.presenter
 import chuprin.serg.kotlin_github.app.domain.users.UsersInteractor
 import chuprin.serg.kotlin_github.app.presentation.presenter.observeWithProgress
 import chuprin.serg.kotlin_github.main.users.view.UsersListView
-import chuprin.serg.mvpcore.MvpPresenter
+import mvp_core.MvpPresenter
+
 import org.jetbrains.anko.AnkoLogger
 import javax.inject.Inject
 

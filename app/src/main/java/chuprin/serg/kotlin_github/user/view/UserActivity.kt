@@ -8,13 +8,14 @@ import chuprin.serg.kotlin_github.R
 import chuprin.serg.kotlin_github.R.layout.activity_user
 import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryEntity
 import chuprin.serg.kotlin_github.app.presentation.view.utils.load
-import chuprin.serg.kotlin_github.app.presentation.view.utils.putAll
 import chuprin.serg.kotlin_github.app.presentation.view.utils.visibility
 import chuprin.serg.kotlin_github.main.repositories.view.RepositoryAdapter
+import chuprin.serg.kotlin_github.user.UserComponent
 import chuprin.serg.kotlin_github.user.UserModule
 import chuprin.serg.kotlin_github.user.presenter.UserPresenter
-import chuprin.serg.mvpcore.view.MvpActivity
+
 import kotlinx.android.synthetic.main.activity_user.*
+import mvp_core.view.MvpActivity
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
@@ -54,9 +55,11 @@ class UserActivity : MvpActivity<UserPresenter>(), UserView {
         followersCount.text = count
     }
 
-    override fun createComponent(state: Bundle?): Any {
-        return KotApplication.component.userComponent(UserModule(Bundle().putAll(state, intent.extras)))
+    override fun createComponent(): Any {
+        return KotApplication.component.userComponent(UserModule(intent.extras))
     }
+
+    override fun componentClass(): Class<*> = UserComponent::class.java
 
     override fun showRepositories(repositories: List<GithubRepositoryEntity>) {
         repositoriesAdapter.setData(repositories)

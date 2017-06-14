@@ -3,7 +3,7 @@ package chuprin.serg.kotlin_github.app.domain.account
 import chuprin.serg.kotlin_github.app.data.entity.GithubAccount
 import chuprin.serg.kotlin_github.app.data.repository.specification.DbSpecification
 import com.vicpin.krealmextensions.queryAll
-import rx.Observable
+import io.reactivex.Observable
 
 class GetAllAccountsSpecification : DbSpecification<List<GithubAccount>> {
 

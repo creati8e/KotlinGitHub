@@ -4,8 +4,8 @@ import chuprin.serg.kotlin_github.app.data.AbsRepository
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserEntity
 import chuprin.serg.kotlin_github.app.data.repository.CachePolicy
 import chuprin.serg.kotlin_github.app.domain.account.AccountInteractor
-import rx.Completable
-import rx.Observable
+import io.reactivex.Completable
+import io.reactivex.Observable
 import javax.inject.Inject
 
 class UsersInteractor @Inject constructor(private val usersRepository: AbsRepository<GithubUserEntity>,
@@ -19,7 +19,7 @@ class UsersInteractor @Inject constructor(private val usersRepository: AbsReposi
         return usersRepository.get(UserLoginSpecification(accountInteractor.getCurrentAccount().login), cachePolicy)
     }
 
-    fun fetchMe(): Completable = getMe(CachePolicy.NET_ONLY()).toCompletable()
+    fun fetchMe(): Completable = getMe(CachePolicy.NET_ONLY()).ignoreElements()
 
     fun userLoggedIn(): Boolean = accountInteractor.getCurrentAccount().token.isNotEmpty()
 

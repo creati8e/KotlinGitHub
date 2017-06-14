@@ -10,8 +10,8 @@ import chuprin.serg.kotlin_github.main.login.CustomTabsHelper
 import chuprin.serg.kotlin_github.main.login.LoginModule
 import chuprin.serg.kotlin_github.main.login.model.LoginInteractor
 import chuprin.serg.kotlin_github.main.login.model.entity.NoAuthError
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_login.*
-import rx.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 
@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(state: Bundle?) {
         super.onCreate(state)
         setContentView(R.layout.activity_login)
-        KotApplication.component.loginComponent(LoginModule(state)).inject(this)
+        KotApplication.component.loginComponent(LoginModule()).inject(this)
         handleIntent(intent)
     }
 

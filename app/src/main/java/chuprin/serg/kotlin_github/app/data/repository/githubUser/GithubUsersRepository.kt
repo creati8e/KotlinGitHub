@@ -8,7 +8,7 @@ import chuprin.serg.kotlin_github.app.data.entity.GithubUserNetworkEntity
 import chuprin.serg.kotlin_github.app.data.mapper.*
 import chuprin.serg.kotlin_github.app.data.repository.CachePolicy
 import chuprin.serg.kotlin_github.app.data.repository.specification.Specification
-import rx.Observable
+import io.reactivex.Observable
 import javax.inject.Inject
 
 class GithubUsersRepository @Inject constructor(
@@ -25,7 +25,7 @@ class GithubUsersRepository @Inject constructor(
         }
     }
 
-    override fun getList(specification: Specification): Observable<List<GithubUserEntity>> {
+    override fun getList(specification: Specification, cachePolicy: CachePolicy): Observable<List<GithubUserEntity>> {
         val dbUsers = dbSource.getList(specification).map(List<GithubUserDbEntity>::mapDbListToEntity)
 
         val netUsers = netSource.getList(specification)
