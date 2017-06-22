@@ -3,8 +3,8 @@ package chuprin.serg.kotlin_github.main.repositories.view
 import android.view.ViewGroup
 import chuprin.serg.kotlin_github.R
 import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryEntity
-import chuprin.serg.kotlin_github.app.presentation.view.BaseAdapter
-import chuprin.serg.kotlin_github.app.presentation.view.setListener
+import chuprin.serg.kotlin_github.app.presentation.view.adapter.BaseAdapter
+import chuprin.serg.kotlin_github.app.presentation.view.adapter.setListener
 import chuprin.serg.kotlin_github.app.presentation.view.utils.visibility
 import kotlinx.android.synthetic.main.list_item_repository.view.*
 

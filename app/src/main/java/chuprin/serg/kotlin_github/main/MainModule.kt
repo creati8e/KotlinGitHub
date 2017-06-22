@@ -7,18 +7,11 @@ import chuprin.serg.kotlin_github.app.domain.users.UsersInteractor
 import chuprin.serg.kotlin_github.main.presenter.MainPresenter
 import chuprin.serg.kotlin_github.main.repositories.presenter.RepositoriesListPresenter
 import chuprin.serg.kotlin_github.main.repositories.view.RepositoriesListFragment
-import chuprin.serg.kotlin_github.main.users.presenter.UsersListPresenter
 import dagger.Module
 import dagger.Provides
 
 @Module
 class MainModule(val bundle: Bundle?) {
-
-    @Provides
-    @PerView
-    fun provideUsersPresenter(interactor: UsersInteractor): UsersListPresenter {
-        return UsersListPresenter(interactor)
-    }
 
     @Provides
     @PerView

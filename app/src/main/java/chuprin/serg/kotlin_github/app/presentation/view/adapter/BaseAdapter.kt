@@ -1,14 +1,13 @@
-package chuprin.serg.kotlin_github.app.presentation.view
+package chuprin.serg.kotlin_github.app.presentation.view.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import java.util.*
 
 abstract class BaseAdapter<MODEL> : RecyclerView.Adapter<BaseAdapter.ViewHolder>() {
 
-    private var listData: List<MODEL> = ArrayList()
+    private var listData: MutableList<MODEL> = mutableListOf()
     var clickCallback: ((MODEL, Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
@@ -27,8 +26,15 @@ abstract class BaseAdapter<MODEL> : RecyclerView.Adapter<BaseAdapter.ViewHolder>
     abstract fun bindVh(vh: ViewHolder, data: MODEL, position: Int)
 
     fun setData(data: List<MODEL>) {
-        listData = data
+        listData.clear()
+        listData.addAll(data)
         notifyDataSetChanged()
+    }
+
+    fun insert(data: List<MODEL>) {
+        val size = listData.size
+        listData.addAll(data)
+        notifyItemRangeInserted(size, size + data.size)
     }
 
     class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)

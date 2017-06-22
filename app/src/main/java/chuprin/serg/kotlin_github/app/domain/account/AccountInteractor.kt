@@ -7,7 +7,7 @@ import javax.inject.Inject
 class AccountInteractor
 @Inject constructor(private val credentialsRepository: AbsRepository<GithubAccount>) {
 
-    fun getAllAccounts() = credentialsRepository.getList(GetAllAccountsSpecification())
+    fun getAllAccounts() = credentialsRepository.getAll(GetAllAccountsSpecification())
 
     fun getCurrentAccount(): GithubAccount = credentialsRepository.get(GetActiveAccountSpecification()).blockingFirst()
 

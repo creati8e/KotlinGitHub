@@ -5,12 +5,12 @@ apply plugin: 'realm-android'
 
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion project.ext.buildToolsVersion
     defaultConfig {
         applicationId "chuprin.serg.kotlintest"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -36,38 +36,32 @@ def daggerVer = '2.10'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
     //support
     implementation "com.android.support:appcompat-v7:$project.ext.supportVersion"
     implementation "com.android.support:cardview-v7:$project.ext.supportVersion"
     implementation "com.android.support:recyclerview-v7:$project.ext.supportVersion"
     implementation "com.android.support:design:$project.ext.supportVersion"
     implementation "com.android.support:customtabs:$project.ext.supportVersion"
-
     //di
     implementation "com.google.dagger:dagger:$daggerVer"
     kapt "com.google.dagger:dagger-compiler:$daggerVer"
-
     //rx
     implementation "io.reactivex.rxjava2:rxjava:2.1.0"
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:2.0.0'
 
     //images
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'de.hdodenhof:circleimageview:2.1.0'
-
     //network
     implementation 'com.squareup.okhttp3:logging-interceptor:3.7.0'
     implementation 'com.squareup.retrofit2:retrofit:2.2.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
-
     //anko
     implementation 'org.jetbrains.anko:anko-common:0.10.1'
     implementation 'com.github.vicpinm:krealmextensions:1.0.8'
-
     implementation project(":mvp-core")
 }
 

@@ -5,6 +5,8 @@ import chuprin.serg.kotlin_github.main.MainComponent
 import chuprin.serg.kotlin_github.main.MainModule
 import chuprin.serg.kotlin_github.main.login.LoginComponent
 import chuprin.serg.kotlin_github.main.login.LoginModule
+import chuprin.serg.kotlin_github.main.users.UsersComponent
+import chuprin.serg.kotlin_github.main.users.UsersModule
 import chuprin.serg.kotlin_github.repositories.RepositoriesActivity
 import chuprin.serg.kotlin_github.user.UserComponent
 import chuprin.serg.kotlin_github.user.UserModule
@@ -19,6 +21,8 @@ interface AppComponent {
     fun mainComponent(module: MainModule): MainComponent
 
     fun userComponent(module: UserModule): UserComponent
+
+    fun usersComponent(module: UsersModule): UsersComponent
 
     fun loginComponent(module: LoginModule): LoginComponent
 

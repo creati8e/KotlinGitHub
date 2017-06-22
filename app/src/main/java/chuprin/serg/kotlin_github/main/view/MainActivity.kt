@@ -58,9 +58,9 @@ class MainActivity : MvpActivity<MainPresenter>(), MainView {
         }
 
         val headerView = navigationView.getHeaderView(0)
-        userLogin = headerView.findViewById(R.id.username) as TextView
-        userAvatar = headerView.findViewById(R.id.headerImage) as ImageView
-        loginBtn = headerView.findViewById(R.id.loginBtn) as ImageView
+        userLogin = headerView.findViewById(R.id.username)
+        userAvatar = headerView.findViewById(R.id.headerImage)
+        loginBtn = headerView.findViewById(R.id.loginBtn)
         loginBtn.setOnClickListener { presenter.loginBtnClicked() }
 
         navigationView.setNavigationItemSelectedListener {

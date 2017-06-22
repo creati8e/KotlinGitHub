@@ -23,7 +23,7 @@ class GithubRepositoriesRepository
         }
     }
 
-    override fun getList(specification: Specification, cachePolicy: CachePolicy): Observable<List<GithubRepositoryEntity>> {
+    override fun getAll(specification: Specification, cachePolicy: CachePolicy): Observable<List<GithubRepositoryEntity>> {
         when (cachePolicy) {
             is CachePolicy.BOTH -> return Observable.concat(getDbRepos(specification), getNetRepos(specification))
             is CachePolicy.CACHE_ONLY -> return getDbRepos(specification)
@@ -36,14 +36,14 @@ class GithubRepositoriesRepository
     override fun delete(model: GithubRepositoryEntity) = dbSource.delete(model.mapEntityToDb())
 
     private fun getNetRepos(specification: Specification): Observable<List<GithubRepositoryEntity>> {
-        return netSource.getList(specification)
+        return netSource.getAll(specification)
                 .doOnNext { dbSource.putAll(it.mapNetListToDb()) }
-                .flatMap { dbSource.getList(specification) }
-                .onErrorResumeNext(dbSource.getList(specification))
+                .flatMap { dbSource.getAll(specification) }
+                .onErrorResumeNext(dbSource.getAll(specification))
                 .map(List<GithubRepositoryDbEntity>::mapListDbToEntity)
     }
 
-    private fun getDbRepos(specification: Specification) = dbSource.getList(specification)
+    private fun getDbRepos(specification: Specification) = dbSource.getAll(specification)
             .map(List<GithubRepositoryDbEntity>::mapListDbToEntity)
 
     private fun getSingleNetRepo(specification: Specification): Observable<GithubRepositoryEntity> {
@@ -56,6 +56,5 @@ class GithubRepositoriesRepository
 
     private fun getSingleDbRepo(specification: Specification) = dbSource.get(specification)
             .map { it.mapDbToEntity() }
-
 
 }

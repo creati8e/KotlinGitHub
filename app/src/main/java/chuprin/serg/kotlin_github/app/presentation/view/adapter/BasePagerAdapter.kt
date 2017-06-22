@@ -1,20 +1,16 @@
-package chuprin.serg.kotlin_github.app.presentation.view
+package chuprin.serg.kotlin_github.app.presentation.view.adapter
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import android.util.SparseArray
 import android.view.ViewGroup
-import rx.Completable
-import rx.subjects.AsyncSubject
-
 
 abstract class BasePagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
-    val registeredFragments = SparseArray<Fragment>()
-    var mAsyncSubject: AsyncSubject<Void> = AsyncSubject.create()
+    val registeredFragments = android.util.SparseArray<Fragment>()
+    var mAsyncSubject: rx.subjects.AsyncSubject<Void> = rx.subjects.AsyncSubject.create()
     var mInstantiatedCount = 0
 
-    fun observeAdapterInitialized(): Completable {
+    fun observeAdapterInitialized(): rx.Completable {
         return mAsyncSubject.asObservable().toCompletable()
     }
 

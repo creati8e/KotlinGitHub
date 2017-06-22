@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import chuprin.serg.kotlin_github.app.data.AbsRepository
+import chuprin.serg.kotlin_github.app.data.PaginationAbsRepository
 import chuprin.serg.kotlin_github.app.data.Source
 import chuprin.serg.kotlin_github.app.data.entity.*
 import chuprin.serg.kotlin_github.app.data.network.GithubRepositoriesApi
@@ -30,7 +31,7 @@ class DataModule {
     @Singleton
     fun provideUserRepository(dbSource: Source<GithubUserDbEntity>,
                               netSource: Source<GithubUserNetworkEntity>)
-            : AbsRepository<GithubUserEntity> {
+            : PaginationAbsRepository<GithubUserEntity> {
 
         return GithubUsersRepository(dbSource, netSource)
     }

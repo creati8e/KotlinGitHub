@@ -12,7 +12,8 @@ class CredentialsRepository
 
     override fun get(specification: Specification, cachePolicy: CachePolicy) = dbSource.get(specification)
 
-    override fun getList(specification: Specification, cachePolicy: CachePolicy) = dbSource.getList(specification)
+    override fun getAll(specification: Specification,
+                        cachePolicy: CachePolicy) = dbSource.getAll(specification)
 
     override fun put(model: GithubAccount) = dbSource.put(model)
 
