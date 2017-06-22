@@ -9,18 +9,18 @@ import javax.inject.Inject
 class RepositoriesInteractor @Inject constructor(private var repository: AbsRepository<GithubRepositoryEntity>) {
 
     fun getAllRepositories(): Observable<List<GithubRepositoryEntity>> {
-        return repository.getList(AllRepositoriesSpecification())
+        return repository.getAll(AllRepositoriesSpecification())
     }
 
     fun getUserRepositories(login: String): Observable<List<GithubRepositoryEntity>> {
-        return repository.getList(UserRepositoriesSpecification(login))
+        return repository.getAll(UserRepositoriesSpecification(login))
     }
 
     fun getUserForkedRepositories(login: String): Observable<List<GithubRepositoryEntity>> {
-        return repository.getList(UserForkedRepositoriesSpecification(login), CachePolicy.CACHE_ONLY())
+        return repository.getAll(UserForkedRepositoriesSpecification(login), cachePolicy = CachePolicy.CACHE_ONLY())
     }
 
     fun getUserOwnRepositories(login: String): Observable<List<GithubRepositoryEntity>> {
-        return repository.getList(UserOwnRepositoriesSpecification(login), CachePolicy.CACHE_ONLY())
+        return repository.getAll(UserOwnRepositoriesSpecification(login), cachePolicy = CachePolicy.CACHE_ONLY())
     }
 }

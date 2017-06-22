@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import chuprin.serg.kotlin_github.R
-import chuprin.serg.kotlin_github.app.presentation.view.BaseAdapter
+import chuprin.serg.kotlin_github.app.presentation.view.adapter.BaseAdapter
 import chuprin.serg.kotlin_github.app.presentation.view.utils.visibility
 import kotlinx.android.synthetic.main.fragment_list.*
 import mvp_core.MvpPresenter
@@ -28,6 +28,8 @@ abstract class ListFragment<MODEL, ADAPTER : BaseAdapter<MODEL>>
     override fun showProgress(visible: Boolean) = progress.visibility(visible)
 
     override fun showData(data: List<MODEL>) = adapter.setData(data)
+
+    override fun addData(list: List<MODEL>) = adapter.insert(list)
 
     override fun getLayoutRes(): Int = R.layout.fragment_list
 

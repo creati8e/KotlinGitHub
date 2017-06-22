@@ -12,6 +12,10 @@ fun GithubUserNetworkEntity.mapNetToDb(): GithubUserDbEntity {
     return GithubUserDbEntity(id, login, avatarUrl ?: "", repos, followers, following)
 }
 
+fun GithubUserNetworkEntity.mapToEntity(): GithubUserEntity {
+    return GithubUserEntity(id, login, avatarUrl ?: "", repos, followers, following)
+}
+
 fun GithubUserEntity.mapEntityToDb(): GithubUserDbEntity {
     return GithubUserDbEntity(id, login, avatarUrl, repos, followers, following)
 }
@@ -22,4 +26,8 @@ fun List<GithubUserNetworkEntity>.mapNetListToDb(): List<GithubUserDbEntity> {
 
 fun List<GithubUserDbEntity>.mapDbListToEntity(): List<GithubUserEntity> {
     return map(GithubUserDbEntity::mapDbToEntity).toList()
+}
+
+fun List<GithubUserNetworkEntity>.mapNetToEntity(): List<GithubUserEntity> {
+    return map(GithubUserNetworkEntity::mapToEntity)
 }

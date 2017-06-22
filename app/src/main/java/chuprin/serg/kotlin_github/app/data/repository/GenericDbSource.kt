@@ -19,7 +19,7 @@ abstract class GenericDbSource<MODEL : RealmObject> : Source<MODEL> {
         return specification<MODEL>(specification).toDbResults()
     }
 
-    override fun getList(specification: Specification): Observable<List<MODEL>> {
+    override fun getAll(specification: Specification): Observable<List<MODEL>> {
         return specification<List<MODEL>>(specification).toDbResults()
     }
 

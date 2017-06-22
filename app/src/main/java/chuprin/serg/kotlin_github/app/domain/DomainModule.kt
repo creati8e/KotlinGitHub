@@ -1,4 +1,5 @@
 import chuprin.serg.kotlin_github.app.data.AbsRepository
+import chuprin.serg.kotlin_github.app.data.PaginationAbsRepository
 import chuprin.serg.kotlin_github.app.data.entity.GithubAccount
 import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryEntity
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserEntity
@@ -14,7 +15,7 @@ class DomainModule {
 
     @Provides
     @Singleton
-    fun provideGitHubUserInteractor(usersRepository: AbsRepository<GithubUserEntity>,
+    fun provideGitHubUserInteractor(usersRepository: PaginationAbsRepository<GithubUserEntity>,
                                     accountInteractor: AccountInteractor): UsersInteractor {
         return UsersInteractor(usersRepository, accountInteractor)
     }
