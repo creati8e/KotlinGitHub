@@ -1,8 +1,9 @@
 package chuprin.serg.kotlin_github.app.presentation.view.adapter.pagination
 
-import chuprin.serg.kotlin_github.app.presentation.view.adapter.multiviewadapter.MultiViewAdapter
+import serg.chuprin.adapter.MultiViewAdapter
 
-class PaginationAdapter(items: MutableList<Any> = mutableListOf<Any>()) : MultiViewAdapter(items) {
+
+class PaginationAdapter(items: MutableList<Any> = mutableListOf()) : MultiViewAdapter(items) {
 
     fun setLoadingMoreVisibility(visible: Boolean) = when (visible) {
         true -> addItemIfNotPresent(ProgressModel())

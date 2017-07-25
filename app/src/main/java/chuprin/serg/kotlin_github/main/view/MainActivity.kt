@@ -16,18 +16,19 @@ import chuprin.serg.kotlin_github.main.login.view.LoginActivity
 import chuprin.serg.kotlin_github.main.presenter.MainPresenter
 import chuprin.serg.kotlin_github.repositories.RepositoriesActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import mvp_core.view.MvpActivity
+
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.yesButton
+import serg.chuprin.mvp_core.android.MvpActivity
 import javax.inject.Inject
 
 class MainActivity : MvpActivity<MainPresenter>(), MainView {
 
     @Inject lateinit var presenter: MainPresenter
-    lateinit var userLogin: TextView
-    lateinit var userAvatar: ImageView
+    private lateinit var userLogin: TextView
+    private lateinit var userAvatar: ImageView
     lateinit var loginBtn: ImageView
     private val pagerAdapter: MainPagerAdapter = MainPagerAdapter(supportFragmentManager)
 

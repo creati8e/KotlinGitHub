@@ -18,9 +18,10 @@ import chuprin.serg.kotlin_github.main.users.view.adapter.UserRenderer
 import chuprin.serg.kotlin_github.user.UserComponent
 import chuprin.serg.kotlin_github.user.view.UserActivity
 import kotlinx.android.synthetic.main.fragment_list.*
-import mvp_core.view.MvpFragment
+
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import serg.chuprin.mvp_core.android.MvpFragment
 import javax.inject.Inject
 
 class UsersListFragment : MvpFragment<UsersListPresenter>(), UsersListView {

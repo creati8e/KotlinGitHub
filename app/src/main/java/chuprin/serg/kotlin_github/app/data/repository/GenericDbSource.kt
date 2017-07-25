@@ -23,7 +23,7 @@ abstract class GenericDbSource<MODEL : RealmObject> : Source<MODEL> {
         return specification<List<MODEL>>(specification).toDbResults()
     }
 
-    protected fun <MODEL> specification(specification: Specification): DbSpecification<MODEL> {
+    private fun <MODEL> specification(specification: Specification): DbSpecification<MODEL> {
         return specification as DbSpecification<MODEL>
     }
 }

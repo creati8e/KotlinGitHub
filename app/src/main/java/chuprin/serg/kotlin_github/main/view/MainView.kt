@@ -1,6 +1,7 @@
 package chuprin.serg.kotlin_github.main.view
 
-import mvp_core.view.MvpView
+import serg.chuprin.mvp_core.view.MvpView
+
 
 interface MainView : MvpView {
     fun showUserLogin(login: String)

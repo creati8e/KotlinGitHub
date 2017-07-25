@@ -26,9 +26,9 @@ class LoginActivity : AppCompatActivity() {
         handleIntent(intent)
     }
 
-    fun showProgress(visible: Boolean) = progress.visibility(visible)
+    private fun showProgress(visible: Boolean) = progress.visibility(visible)
 
-    fun handleIntent(intent: Intent?) {
+    private fun handleIntent(intent: Intent?) {
         interactor.retrieveToken(intent)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { showProgress(true) }

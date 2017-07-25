@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.ViewGroup
 
 abstract class BasePagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
-    val registeredFragments = android.util.SparseArray<Fragment>()
-    var mAsyncSubject: rx.subjects.AsyncSubject<Void> = rx.subjects.AsyncSubject.create()
+    private val registeredFragments = android.util.SparseArray<Fragment>()
+    private var mAsyncSubject: rx.subjects.AsyncSubject<Void> = rx.subjects.AsyncSubject.create()
     var mInstantiatedCount = 0
 
     fun observeAdapterInitialized(): rx.Completable {

@@ -7,6 +7,7 @@ import chuprin.serg.kotlin_github.app.data.entity.GithubUserEntity
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserNetworkEntity
 import chuprin.serg.kotlin_github.app.data.mapper.*
 import chuprin.serg.kotlin_github.app.data.repository.CachePolicy
+import chuprin.serg.kotlin_github.app.data.repository.CachePolicy.*
 import chuprin.serg.kotlin_github.app.data.repository.specification.PaginationSpecification
 import chuprin.serg.kotlin_github.app.data.repository.specification.Specification
 import io.reactivex.Observable
@@ -20,9 +21,9 @@ class GithubUsersRepository @Inject constructor(
 
     override fun get(specification: Specification, cachePolicy: CachePolicy): Observable<GithubUserEntity> {
         when (cachePolicy) {
-            is CachePolicy.BOTH -> return Observable.concat(getDbUser(specification), getNetUser(specification))
-            is CachePolicy.CACHE_ONLY -> return getDbUser(specification)
-            is CachePolicy.NET_ONLY -> return getNetUser(specification)
+            is BOTH -> return Observable.concat(getDbUser(specification), getNetUser(specification))
+            is CACHE_ONLY -> return getDbUser(specification)
+            is NET_ONLY -> return getNetUser(specification)
         }
     }
 

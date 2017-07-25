@@ -3,9 +3,11 @@ package chuprin.serg.kotlin_github.main.presenter
 import chuprin.serg.kotlin_github.app.domain.users.UsersInteractor
 import chuprin.serg.kotlin_github.main.view.MainView
 import io.reactivex.android.schedulers.AndroidSchedulers
-import mvp_core.MvpPresenter
+import serg.chuprin.mvp_core.MvpPresenter
+import serg.chuprin.mvp_core.annotations.InjectViewState
 import javax.inject.Inject
 
+@InjectViewState
 class MainPresenter
 @Inject constructor(private val usersInteractor: UsersInteractor) : MvpPresenter<MainView>() {
 
@@ -40,5 +42,4 @@ class MainPresenter
                     }
                 }, { it.printStackTrace() }))
     }
-
 }

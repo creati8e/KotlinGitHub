@@ -22,7 +22,7 @@ abstract class GenericNetworkSource<MODEL, API>(val api: API) : Source<MODEL> {
         return specification<List<MODEL>>(specification).toNetResults(api)
     }
 
-    protected fun <MODEL> specification(specification: Specification): NetworkSpecification<API, MODEL> {
+    private fun <MODEL> specification(specification: Specification): NetworkSpecification<API, MODEL> {
         return specification as NetworkSpecification<API, MODEL>
     }
 }

@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.TextView
 import chuprin.serg.kotlin_github.app.domain.pagintation.ScrollEvent
 import com.jakewharton.rxbinding2.support.v7.widget.RecyclerViewScrollEvent
 import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
@@ -20,17 +19,11 @@ fun View.visibility(visible: Boolean) {
     }
 }
 
-fun TextView.setTextOrHide(text: String) = when {
-    text.isEmpty() -> visibility(false)
-    else -> this.text = text
-}
-
 
 inline fun <reified T : Fragment> instanceOf(vararg params: Pair<String, Any>): T
-        = T::class.java.newInstance()
-        .apply {
-            arguments = bundleOf(*params)
-        }
+        = T::class.java.newInstance().apply {
+    arguments = bundleOf(*params)
+}
 
 fun Bundle.putAll(vararg bundles: Bundle?): Bundle = Bundle()
         .apply {

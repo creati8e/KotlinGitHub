@@ -35,7 +35,7 @@ class RepositoriesActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar?.title = "My repositories"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        repositoriesListFragment = instanceOf<RepositoriesListFragment>(
+        repositoriesListFragment = instanceOf(
                 RepositoriesListFragment.BUNDLE_USER_LOGIN to accountInteractor.getCurrentAccount().login)
 
         supportFragmentManager.beginTransaction()
@@ -93,7 +93,7 @@ class RepositoriesActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setListenersForButtons(viewGroup: ViewGroup) {
-        (0..viewGroup.childCount - 1)
+        (0 until viewGroup.childCount)
                 .map { viewGroup.getChildAt(it) }
                 .forEach {
                     if (it.contentDescription == "menu") {

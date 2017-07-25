@@ -9,23 +9,25 @@ import chuprin.serg.kotlin_github.R.layout.activity_user
 import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryEntity
 import chuprin.serg.kotlin_github.app.presentation.view.utils.load
 import chuprin.serg.kotlin_github.app.presentation.view.utils.visibility
-import chuprin.serg.kotlin_github.main.repositories.view.RepositoryAdapter
+import chuprin.serg.kotlin_github.main.repositories.view.RepositoryRenderer
 import chuprin.serg.kotlin_github.user.UserComponent
 import chuprin.serg.kotlin_github.user.UserModule
 import chuprin.serg.kotlin_github.user.presenter.UserPresenter
 
 import kotlinx.android.synthetic.main.activity_user.*
-import mvp_core.view.MvpActivity
 import org.jetbrains.anko.toast
+import serg.chuprin.adapter.MultiViewAdapter
+import serg.chuprin.mvp_core.android.MvpActivity
 import javax.inject.Inject
 
 class UserActivity : MvpActivity<UserPresenter>(), UserView {
 
     @Inject lateinit var presenter: UserPresenter
-    private val repositoriesAdapter: RepositoryAdapter = RepositoryAdapter()
+    private val repositoriesAdapter: MultiViewAdapter = MultiViewAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        repositoriesAdapter.registerRenderer(RepositoryRenderer())
         recyclerView.adapter = repositoriesAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -62,7 +64,7 @@ class UserActivity : MvpActivity<UserPresenter>(), UserView {
     override fun componentClass(): Class<*> = UserComponent::class.java
 
     override fun showRepositories(repositories: List<GithubRepositoryEntity>) {
-        repositoriesAdapter.setData(repositories)
+        repositoriesAdapter.setItems(repositories)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

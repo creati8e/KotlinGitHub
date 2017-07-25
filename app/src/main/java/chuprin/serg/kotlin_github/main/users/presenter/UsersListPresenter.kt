@@ -7,11 +7,15 @@ import chuprin.serg.kotlin_github.main.users.view.UsersListView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import mvp_core.MvpPresenter
+import serg.chuprin.mvp_core.MvpPresenter
+import serg.chuprin.mvp_core.annotations.InjectViewState
+
 import javax.inject.Inject
 
+
+@InjectViewState
 class UsersListPresenter
-@Inject constructor(val paginator: Paginator<GithubUserEntity>) : MvpPresenter<UsersListView>() {
+@Inject constructor(private val paginator: Paginator<GithubUserEntity>) : MvpPresenter<UsersListView>() {
 
     private var paginationDisposable: Disposable? = null
 

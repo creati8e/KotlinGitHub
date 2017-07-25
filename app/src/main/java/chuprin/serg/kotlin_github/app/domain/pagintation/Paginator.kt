@@ -5,8 +5,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 
-abstract class Paginator<MODEL>(val limit: Int = 20,
-                                val retryCount: Int = 3) {
+abstract class Paginator<MODEL>(private val limit: Int = 20,
+                                private val retryCount: Int = 3) {
 
     fun paginate(observable: Observable<ScrollEvent>,
                  onScrollAction: (() -> Unit)? = null): Observable<List<MODEL>> {

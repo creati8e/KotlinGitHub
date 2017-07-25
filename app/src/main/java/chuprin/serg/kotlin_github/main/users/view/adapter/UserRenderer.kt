@@ -2,10 +2,12 @@ package chuprin.serg.kotlin_github.main.users.view.adapter
 
 import chuprin.serg.kotlin_github.R
 import chuprin.serg.kotlin_github.app.data.entity.GithubUserEntity
-import chuprin.serg.kotlin_github.app.presentation.view.adapter.multiviewadapter.ViewHolder
-import chuprin.serg.kotlin_github.app.presentation.view.adapter.multiviewadapter.ViewRenderer
 import chuprin.serg.kotlin_github.app.presentation.view.utils.load
 import kotlinx.android.synthetic.main.list_item_user.view.*
+import serg.chuprin.adapter.Click
+import serg.chuprin.adapter.LongClick
+import serg.chuprin.adapter.ViewHolder
+import serg.chuprin.adapter.ViewRenderer
 
 class UserRenderer : ViewRenderer<GithubUserEntity, ViewHolder>() {
 
@@ -18,7 +20,7 @@ class UserRenderer : ViewRenderer<GithubUserEntity, ViewHolder>() {
         holder.itemView.imageView.load(model.avatarUrl, R.drawable.ic_user_placeholder)
     }
 
-    override fun onVhCreated(holder: ViewHolder, clickListener: ViewHolder.ClickCallback?) {
+    override fun onVhCreated(holder: ViewHolder, clickListener: Click?, longClickListener: LongClick?) {
         holder.itemView.setOnClickListener {
             clickListener?.onClick(it, holder.layoutPosition)
         }

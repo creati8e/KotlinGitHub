@@ -5,13 +5,15 @@ import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryEntity
 import chuprin.serg.kotlin_github.app.domain.repositories.RepositoriesInteractor
 import chuprin.serg.kotlin_github.app.presentation.presenter.observeWithProgress
 import chuprin.serg.kotlin_github.main.repositories.view.RepositoriesListView
-
 import io.reactivex.Observable
-import mvp_core.MvpPresenter
+import serg.chuprin.mvp_core.MvpPresenter
+import serg.chuprin.mvp_core.annotations.InjectViewState
 import javax.inject.Inject
 
+@InjectViewState
 class RepositoriesListPresenter
-@Inject constructor(val interactor: RepositoriesInteractor, val userLogin: String) : MvpPresenter<RepositoriesListView>() {
+@Inject constructor(private val interactor: RepositoriesInteractor,
+                    private val userLogin: String) : MvpPresenter<RepositoriesListView>() {
 
     override fun onViewAttached() = when {
         userLogin.isEmpty() -> getData(interactor.getAllRepositories())
@@ -31,5 +33,4 @@ class RepositoriesListPresenter
                 .observeWithProgress(view)
                 .subscribe({ view.showData(it) }, { it.printStackTrace() }))
     }
-
 }

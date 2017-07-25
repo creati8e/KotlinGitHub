@@ -7,27 +7,29 @@ import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryEntity
 import chuprin.serg.kotlin_github.app.data.entity.GithubRepositoryNetworkEntity
 import chuprin.serg.kotlin_github.app.data.mapper.*
 import chuprin.serg.kotlin_github.app.data.repository.CachePolicy
+import chuprin.serg.kotlin_github.app.data.repository.CachePolicy.*
 import chuprin.serg.kotlin_github.app.data.repository.specification.Specification
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class GithubRepositoriesRepository
 @Inject constructor(private val dbSource: Source<GithubRepositoryDbEntity>,
-                    private val netSource: Source<GithubRepositoryNetworkEntity>) : AbsRepository<GithubRepositoryEntity> {
+                    private val netSource: Source<GithubRepositoryNetworkEntity>)
+    : AbsRepository<GithubRepositoryEntity> {
 
     override fun get(specification: Specification, cachePolicy: CachePolicy): Observable<GithubRepositoryEntity> {
         when (cachePolicy) {
-            is CachePolicy.BOTH -> return Observable.concat(getSingleDbRepo(specification), getSingleNetRepo(specification))
-            is CachePolicy.CACHE_ONLY -> return getSingleDbRepo(specification)
-            is CachePolicy.NET_ONLY -> return getSingleNetRepo(specification)
+            is BOTH -> return Observable.concat(getSingleDbRepo(specification), getSingleNetRepo(specification))
+            is CACHE_ONLY -> return getSingleDbRepo(specification)
+            is NET_ONLY -> return getSingleNetRepo(specification)
         }
     }
 
     override fun getAll(specification: Specification, cachePolicy: CachePolicy): Observable<List<GithubRepositoryEntity>> {
         when (cachePolicy) {
-            is CachePolicy.BOTH -> return Observable.concat(getDbRepos(specification), getNetRepos(specification))
-            is CachePolicy.CACHE_ONLY -> return getDbRepos(specification)
-            is CachePolicy.NET_ONLY -> return getNetRepos(specification)
+            is BOTH -> return Observable.concat(getDbRepos(specification), getNetRepos(specification))
+            is CACHE_ONLY -> return getDbRepos(specification)
+            is NET_ONLY -> return getNetRepos(specification)
         }
     }
 

@@ -1,8 +1,8 @@
 package chuprin.serg.kotlin_github.app.presentation.view.adapter.pagination
 
 import chuprin.serg.kotlin_github.R
-import chuprin.serg.kotlin_github.app.presentation.view.adapter.multiviewadapter.ViewHolder
-import chuprin.serg.kotlin_github.app.presentation.view.adapter.multiviewadapter.ViewRenderer
+import serg.chuprin.adapter.ViewHolder
+import serg.chuprin.adapter.ViewRenderer
 
 class ProgressRenderer : ViewRenderer<ProgressModel, ViewHolder>() {
 

@@ -1,7 +1,7 @@
 package chuprin.serg.kotlin_github.app.presentation.view
 
 import android.support.annotation.StringRes
-import mvp_core.view.MvpView
+import serg.chuprin.mvp_core.view.MvpView
 
 interface ProgressView : MvpView {
     fun showProgress(visible: Boolean)
