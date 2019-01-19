@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_app"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="chuprin.serg.khub.home.view.HomeFragment"
+        android:label="Home Fragment"
+        android:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/userInfoFragment"
+        android:name="chuprin.serg.khub.user.view.UserInfoFragment"
+        android:label="User Info Fragment"
+        android:layout="@layout/fragment_user_info" />
+
+</navigation>
